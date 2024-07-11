@@ -10,6 +10,7 @@ import { recording, typing } from "./utils/presence"
 import path, { dirname, join } from "path"
 import { fileURLToPath } from "url";
 import OpenAI from "openai";
+import { ImagePathList } from "./ImagePathList";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -19,13 +20,18 @@ const ASSISTANT_ID = process.env?.ASSISTANT_ID ?? ''
 
 const welcomeFlow = addKeyword<Provider, Database>(EVENTS.WELCOME)
     .addAction(async (ctx, { flowDynamic, state, provider }) => {
-        await typing(ctx, provider)
-
-        await responseText(ctx.body, state, flowDynamic)
+        try {
+            await typing(ctx, provider)
+            await responseText(ctx.body, state, flowDynamic)
+        } catch (error) {
+            console.error(error)
+        }
     })
 
 async function responseText(text: string, state: any, flowDynamic: any) {
+    //console.log("Response Text Start")
     const response = await responseFromAI(text, state)
+    //console.log("Response From AI")
     const chunks = response.split(/\n\n+/);
     for (const chunk of chunks) {
         await showResponseFlowDynamic(chunk, flowDynamic);
@@ -35,22 +41,56 @@ async function responseText(text: string, state: any, flowDynamic: any) {
 async function showResponseFlowDynamic(chunk, flowDynamic) {
     //Original chunk: Antonella - Tallas 27 al 33, Precio: $4,400, Color: Negro ![Antonella](attachment:3-Antonella)
     //Format chunk:  Antonella - Tallas 27 al 33, Precio: $4,400, Color: Negro
-    const formatChunk = chunk
-        .replaceAll(/\[.*?\]/g, '')
+    let formatChunk = chunk
+        //.replaceAll(/\[.*?\]/g, '')
         .replaceAll(/【.*?】/g, '')
         //remove ![Antonella](attachment:3-Antonella)
-        .replaceAll(/!\[.*?]\(.*?\)/g, '')
+        //.replaceAll(/!\[.*?]\(.*?\)/g, '')
+        .replaceAll(/!\[.*?]\(image:(.*?)\)/g, '')
+        //remove [image:9-Stefany]
+        .replaceAll(/\[image:[^\]]+\]/g, '')
+        .replaceAll(": .", ':')
+        .replaceAll(":.", ':')
+        .trim()
         ;
+
+    // Format from
+    //\[ 120 \text{ pares} \times \$14,000 \text{ por par} = \$1,680,000 \]
+    //to 
+    // 120 pares x $14,000 por par = $1,680,000
+     // Paso 1: Remover los delimitadores de LaTeX
+     formatChunk = formatChunk.replaceAll(/\\\[/g, '').replace(/\\\]/g, '');
+    
+    // Paso 2: Remover \text{...}
+    formatChunk = formatChunk.replaceAll(/\\text\{([^}]+)\}/g, '$1');
+    
+    // Paso 3: Reemplazar \times con x
+    formatChunk = formatChunk.replaceAll(/\\times/g, 'x');
+    formatChunk = formatChunk.replaceAll('**', '*');
+    
+    //if format chunk termina en - Imagen: remove
+    formatChunk = formatChunk.replace(/- Imagen:$/, '')
+
+    //if formatChunk termina en - remove
+    formatChunk = formatChunk.replace(/-$/, '')
+
+    // if formatChunk termina en : remove
+    formatChunk = formatChunk.replace(/:$/, '')
+
+    //if formatChunk is empty change
+
+    if (formatChunk.trim() == ""){
+        formatChunk = "."
+    }
+
     //get Images
 
     // reformat from ![Antonella](attachment:3-Antonella) to [image:3-Antonella]
-    const imagesChunk = chunk.replaceAll(/!\[.*?]\(attachment:.*?\)/g, '[image:$2]');
+    let imagesChunk = chunk.replaceAll(/!\[.*?]\(attachment:(.*?)\)/g, '[image:$1]');
+    imagesChunk = imagesChunk.replaceAll(/!\[.*?]\(image:(.*?)\)/g, '[image:$1]');
     const images1 = imagesChunk.match(/\[image:(.*?)\]/g)
 
     const images = [...(images1 || [])].filter(Boolean)
-
-    const pathFolderImages = __dirname + '/images/Inalkem'
-
 
     console.log('Original')
     console.log(chunk)
@@ -70,10 +110,10 @@ async function showResponseFlowDynamic(chunk, flowDynamic) {
     // if number of images is 1 then show only a flow Dynamic    
     if (images.length === 1) {
         console.log("Print one image")
-        const formatImage = images[0].remplaceAll('[image:', '').remplaceAll(']', '')
+        const formatImage = images[0].replaceAll('[image:', '').replaceAll(']', '')
             //remove ()[]
-            .remplaceAll(/\[.*?\]/g, '')
-        const pathImage = pathFolderImages + '/' + formatImage + '.webp'
+            .replaceAll(/\[.*?\]/g, '')
+        const pathImage = ImagePathList[formatImage]
         console.log('Path Image: ' + pathImage)
         await flowDynamic(
             [{
@@ -86,11 +126,12 @@ async function showResponseFlowDynamic(chunk, flowDynamic) {
     if (images.length > 1) {
         console.log("Print multiple images")
         for (const image of images) {
-            const pathImage = pathFolderImages + '/' + image.replace('[image:', '').replace(']', '') + '.webp'
+            const formatImage = image.replaceAll('[image:', '').replaceAll(']', '')
+            const pathImage = ImagePathList[formatImage]
             console.log('Path Image: ' + pathImage)
             await flowDynamic(
                 [{
-                    body: '',
+                    body: '.',
                     media: pathImage
                 }]);
         }
@@ -110,19 +151,23 @@ async function responseFromAI(text, state) {
 
 const audioFlow = addKeyword<Provider, Database>(EVENTS.VOICE_NOTE)
     .addAction(async (ctx, { flowDynamic, state, provider }) => {
-        await recording(ctx, provider)
-        console.log(ctx)
+        try {
+            await recording(ctx, provider)
+            console.log(ctx)
 
-        console.log(__dirname)
-        //write the audio file
-        const localPath = await provider.saveFile(ctx, { path: __dirname + "/tmp" });
-        console.log(localPath)
+            console.log(__dirname)
+            //write the audio file
+            const localPath = await provider.saveFile(ctx, { path: __dirname + "/tmp" });
+            console.log(localPath)
 
-        const text = await speechToText(localPath);
-        //const text2 = await speechToText(localPath);
-        //console.log(text);
-        //await flowDynamic([{ body: "En esta demo no se admite audio" }]);
-        await responseText("(Audio: " + text + ")", state, flowDynamic)
+            const text = await speechToText(localPath);
+            //const text2 = await speechToText(localPath);
+            //console.log(text);
+            //await flowDynamic([{ body: "En esta demo no se admite audio" }]);
+            await responseText("(Audio: " + text + ")", state, flowDynamic)
+        } catch (error) {
+            await showResponseFlowDynamic("El audio no se puede escuchar", flowDynamic)
+        }
     })
 
 const main = async () => {

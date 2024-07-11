@@ -1,0 +1,134 @@
+{
+  "id": "d136936f-d4ae-40bd-bdec-e5e963a79356",
+  "version": "2.0",
+  "name": "WordPress",
+  "url": "https://morfis.co",
+  "tests": [{
+    "id": "a699484a-254b-47f2-951e-28483327646e",
+    "name": "Cambiar precio del producto",
+    "commands": [{
+      "id": "e3232ed9-4187-4a62-b2cf-d907957776f6",
+      "comment": "",
+      "command": "open",
+      "target": "/wp-admin/edit.php?post_type=product",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "fc656a94-f9b3-4cd8-b4a1-c19f92bc80ee",
+      "comment": "",
+      "command": "executeScript",
+      "target": "return 4",
+      "targets": [],
+      "value": "ProductIndex"
+    }, {
+      "id": "003bfe6b-4fb5-4de5-aa1a-890aae6a7d59",
+      "comment": "",
+      "command": "echo",
+      "target": "${ProductIndex}",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "8cb4d440-b395-4d05-99c2-abd8448bbd0f",
+      "comment": "",
+      "command": "click",
+      "target": "xpath=//tr[${ProductIndex}]/td[2]/strong/a",
+      "targets": [
+        ["linkText=Boomerang", "linkText"],
+        ["css=#post-3491 .row-title", "css:finder"],
+        ["xpath=//a[contains(text(),'Boomerang')]", "xpath:link"],
+        ["xpath=//tr[@id='post-3491']/td[2]/strong/a", "xpath:idRelative"],
+        ["xpath=(//a[contains(@href, 'https://morfis.co/wp-admin/post.php?post=3491&action=edit')])[2]", "xpath:href"],
+        ["xpath=//tr[3]/td[2]/strong/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Boomerang')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "26fa48ad-c1cb-4a36-8818-7847b7040d5f",
+      "comment": "",
+      "command": "click",
+      "target": "css=.variations_options span",
+      "targets": [
+        ["css=.variations_options span", "css:finder"],
+        ["xpath=//div[@id='woocommerce-product-data']/div[2]/div/ul/li[6]/a/span", "xpath:idRelative"],
+        ["xpath=//div[2]/div/ul/li[6]/a/span", "xpath:position"],
+        ["xpath=//span[contains(.,'Variaciones')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "0c54539c-30a5-4543-b63d-f4cb0d0a82e3",
+      "comment": "",
+      "command": "storeText",
+      "target": "css=.variations-pagenav:nth-child(3) > .displaying-num",
+      "targets": [
+        ["css=.variations-pagenav:nth-child(3) > .displaying-num", "css:finder"],
+        ["xpath=//div[@id='variable_product_options_inner']/div[5]/div/span", "xpath:idRelative"],
+        ["xpath=//div[7]/div/div[5]/div/span", "xpath:position"]
+      ],
+      "value": "NumberOfVariants"
+    }, {
+      "id": "cb972e4e-857b-437b-8349-a8a9d58fce05",
+      "comment": "",
+      "command": "executeScript",
+      "target": "return ${NumberOfVariants}.match(/\\d/g)",
+      "targets": [],
+      "value": "NumberOfVariants"
+    }, {
+      "id": "f853c5f2-4e78-4e88-a597-c102838edeea",
+      "comment": "",
+      "command": "echo",
+      "target": "${NumberOfVariants}",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "95deab61-adae-4562-831d-54f19e228572",
+      "comment": "",
+      "command": "click",
+      "target": "xpath=//div[2]/h3/a",
+      "targets": [
+        ["css=.open .edit_variation", "css:finder"],
+        ["xpath=(//a[contains(text(),'Editar')])[3]", "xpath:link"],
+        ["xpath=//div[@id='variable_product_options_inner']/div[4]/div[2]/h3/a", "xpath:idRelative"],
+        ["xpath=(//a[contains(@href, 'javascript:void(0)')])[2]", "xpath:href"],
+        ["xpath=//div[2]/h3/a", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "8e1dce0f-f3da-4493-99c2-02569f238208",
+      "comment": "",
+      "command": "click",
+      "target": "xpath=//div[3]/h3/a",
+      "targets": [
+        ["css=.woocommerce_variation:nth-child(3) .edit_variation", "css:finder"],
+        ["xpath=(//a[contains(text(),'Editar')])[4]", "xpath:link"],
+        ["xpath=//div[@id='variable_product_options_inner']/div[4]/div[3]/h3/a", "xpath:idRelative"],
+        ["xpath=(//a[contains(@href, 'javascript:void(0)')])[3]", "xpath:href"],
+        ["xpath=//div[3]/h3/a", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "b3e29eec-79b6-4f8c-b356-342520c76e2d",
+      "comment": "",
+      "command": "while",
+      "target": "",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "ed9aa4f5-0309-41f8-8d7d-79387ac71699",
+      "comment": "",
+      "command": "do",
+      "target": "",
+      "targets": [],
+      "value": ""
+    }]
+  }],
+  "suites": [{
+    "id": "8a88e9c9-774d-46ab-8a72-9931b5326fe2",
+    "name": "Default Suite",
+    "persistSession": false,
+    "parallel": false,
+    "timeout": 300,
+    "tests": ["a699484a-254b-47f2-951e-28483327646e"]
+  }],
+  "urls": ["https://morfis.co/"],
+  "plugins": []
+}
