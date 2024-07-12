@@ -7,26 +7,129 @@
     "id": "a699484a-254b-47f2-951e-28483327646e",
     "name": "Cambiar precio del producto",
     "commands": [{
+      "id": "d2f10615-48e2-46f3-8cdc-7131d62b8f19",
+      "comment": "",
+      "command": "executeScript",
+      "target": "return 0",
+      "targets": [],
+      "value": "NumberOfVariantsTotal"
+    }, {
       "id": "e3232ed9-4187-4a62-b2cf-d907957776f6",
       "comment": "",
       "command": "open",
-      "target": "/wp-admin/edit.php?post_type=product",
+      "target": "/wp-admin/edit.php?s&post_status=all&post_type=product&action=-1&product_cat&product_type&stock_status=instock&filter_action=Filtrar&action2=-1&orderby=title&order=asc",
       "targets": [],
       "value": ""
     }, {
-      "id": "fc656a94-f9b3-4cd8-b4a1-c19f92bc80ee",
+      "id": "cb972e4e-857b-437b-8349-a8a9d58fce04",
       "comment": "",
       "command": "executeScript",
-      "target": "return 4",
+      "target": "return [18900,22900,16900,18500,22900,9600,30900,20900,35100,12500,11900]",
+      "targets": [],
+      "value": "PriceList"
+    }, {
+      "id": "c07b1c6e-e198-4807-9d72-f0d1f8bc9537",
+      "comment": "",
+      "command": "//echo",
+      "target": "${PriceList[0]}",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "d2b31fcc-ca53-459c-8683-d2093253a278",
+      "comment": "",
+      "command": "//echo",
+      "target": "${CurrentProductPrice}",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "e6635a47-6925-42be-9e16-628710a3fcf2",
+      "comment": "",
+      "command": "storeText",
+      "target": "css=.top .displaying-num",
+      "targets": [
+        ["css=.top .displaying-num", "css:finder"],
+        ["xpath=//form[@id='posts-filter']/div/div[3]/span", "xpath:idRelative"],
+        ["xpath=//form/div/div[3]/span", "xpath:position"],
+        ["xpath=//span[contains(.,'11 elementos')]", "xpath:innerText"]
+      ],
+      "value": "NumberOfProducts"
+    }, {
+      "id": "1f59cf87-62be-45e5-bb1c-2b1839e3e065",
+      "comment": "",
+      "command": "//echo",
+      "target": "${NumberOfProducts}",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "2074c896-fa9e-4b7e-b1d5-d351cd9cf788",
+      "comment": "",
+      "command": "executeScript",
+      "target": "return ${PriceList}.length",
+      "targets": [],
+      "value": "NumberOfPrices"
+    }, {
+      "id": "cb972e4e-857b-437b-8349-a8a9d58fce05",
+      "comment": "",
+      "command": "executeScript",
+      "target": "return ${NumberOfProducts}.match(/\\d+/)[0]",
+      "targets": [],
+      "value": "NumberOfProducts"
+    }, {
+      "id": "e246e83c-a25e-4aa6-9162-e80248282a33",
+      "comment": "",
+      "command": "executeScript",
+      "target": "return ${NumberOfProducts} - ${NumberOfPrices}",
+      "targets": [],
+      "value": "CompareLength"
+    }, {
+      "id": "c7b6a187-5c1d-4eae-b619-2c114e744be0",
+      "comment": "",
+      "command": "//echo",
+      "target": "${CompareLength}",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "e47f51b0-4a93-4819-9e67-a688329ea568",
+      "comment": "",
+      "command": "assert",
+      "target": "CompareLength",
+      "targets": [],
+      "value": "0"
+    }, {
+      "id": "7a2eb712-301a-402f-8247-4033c8cf1715",
+      "comment": "",
+      "command": "executeScript",
+      "target": "return 0",
       "targets": [],
       "value": "ProductIndex"
     }, {
-      "id": "003bfe6b-4fb5-4de5-aa1a-890aae6a7d59",
+      "id": "6d4a2b16-2ca8-4b34-8cb5-e8cd982aeac2",
       "comment": "",
-      "command": "echo",
-      "target": "${ProductIndex}",
+      "command": "times",
+      "target": "${NumberOfProducts}",
       "targets": [],
       "value": ""
+    }, {
+      "id": "2f581d58-44c2-48d2-98e8-cf954d36aca7",
+      "comment": "",
+      "command": "executeScript",
+      "target": "return ${PriceList}[${ProductIndex}]",
+      "targets": [],
+      "value": "CurrentProductPrice"
+    }, {
+      "id": "859f0734-8290-41a9-81b8-ca9d2eb5cba9",
+      "comment": "",
+      "command": "echo",
+      "target": "${CurrentProductPrice}",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "9d492d7d-d40c-4ae3-b695-ddd68ede0152",
+      "comment": "",
+      "command": "executeScript",
+      "target": "return ${ProductIndex} + 1",
+      "targets": [],
+      "value": "ProductIndex"
     }, {
       "id": "8cb4d440-b395-4d05-99c2-abd8448bbd0f",
       "comment": "",
@@ -55,6 +158,13 @@
       ],
       "value": ""
     }, {
+      "id": "cecff2f6-8f72-4e24-86ec-fe9350e6d721",
+      "comment": "",
+      "command": "executeScript",
+      "target": "return 0",
+      "targets": [],
+      "value": "NumberOfVariants"
+    }, {
       "id": "0c54539c-30a5-4543-b63d-f4cb0d0a82e3",
       "comment": "",
       "command": "storeText",
@@ -66,10 +176,10 @@
       ],
       "value": "NumberOfVariants"
     }, {
-      "id": "cb972e4e-857b-437b-8349-a8a9d58fce05",
+      "id": "6c34e880-2336-499a-8a53-96e37da3cb70",
       "comment": "",
       "command": "executeScript",
-      "target": "return ${NumberOfVariants}.match(/\\d/g)",
+      "target": "return ${NumberOfVariants}.match(/\\d+/)[0]",
       "targets": [],
       "value": "NumberOfVariants"
     }, {
@@ -80,42 +190,125 @@
       "targets": [],
       "value": ""
     }, {
-      "id": "95deab61-adae-4562-831d-54f19e228572",
+      "id": "72a0de48-5380-441c-98cc-73a9a35ef094",
       "comment": "",
       "command": "click",
-      "target": "xpath=//div[2]/h3/a",
+      "target": "linkText=Ampliar",
       "targets": [
-        ["css=.open .edit_variation", "css:finder"],
-        ["xpath=(//a[contains(text(),'Editar')])[3]", "xpath:link"],
-        ["xpath=//div[@id='variable_product_options_inner']/div[4]/div[2]/h3/a", "xpath:idRelative"],
-        ["xpath=(//a[contains(@href, 'javascript:void(0)')])[2]", "xpath:href"],
-        ["xpath=//div[2]/h3/a", "xpath:position"]
+        ["linkText=Ampliar", "linkText"],
+        ["css=.variations-pagenav:nth-child(4) .expand_all", "css:finder"],
+        ["xpath=(//a[contains(text(),'Ampliar')])[3]", "xpath:link"],
+        ["xpath=//div[@id='variable_product_options_inner']/div[2]/div/span[2]/a", "xpath:idRelative"],
+        ["xpath=(//a[contains(@href, '#')])[63]", "xpath:href"],
+        ["xpath=//span[2]/a", "xpath:position"]
       ],
       "value": ""
     }, {
-      "id": "8e1dce0f-f3da-4493-99c2-02569f238208",
+      "id": "76d9710b-9e19-4c00-95b6-8b494841f08b",
       "comment": "",
-      "command": "click",
-      "target": "xpath=//div[3]/h3/a",
-      "targets": [
-        ["css=.woocommerce_variation:nth-child(3) .edit_variation", "css:finder"],
-        ["xpath=(//a[contains(text(),'Editar')])[4]", "xpath:link"],
-        ["xpath=//div[@id='variable_product_options_inner']/div[4]/div[3]/h3/a", "xpath:idRelative"],
-        ["xpath=(//a[contains(@href, 'javascript:void(0)')])[3]", "xpath:href"],
-        ["xpath=//div[3]/h3/a", "xpath:position"]
-      ],
-      "value": ""
+      "command": "executeScript",
+      "target": "return 0",
+      "targets": [],
+      "value": "VariantIndex"
     }, {
-      "id": "b3e29eec-79b6-4f8c-b356-342520c76e2d",
+      "id": "1d40b3eb-2bfc-4fa0-b316-f424f2899f25",
       "comment": "",
-      "command": "while",
+      "command": "do",
       "target": "",
       "targets": [],
       "value": ""
     }, {
-      "id": "ed9aa4f5-0309-41f8-8d7d-79387ac71699",
+      "id": "abd5f62f-d72a-45c2-9bdd-e83e03d09b9d",
       "comment": "",
-      "command": "do",
+      "command": "type",
+      "target": "name=variable_regular_price[${VariantIndex}]",
+      "targets": [
+        ["id=variable_regular_price_0", "id"],
+        ["name=variable_regular_price[0]", "name"],
+        ["css=#variable_regular_price_0", "css:finder"],
+        ["xpath=//input[@id='variable_regular_price_0']", "xpath:attributes"],
+        ["xpath=//div[@id='variable_product_options_inner']/div[4]/div/div/div/div/p/input", "xpath:idRelative"],
+        ["xpath=//div[4]/div/div/div/div/p/input", "xpath:position"]
+      ],
+      "value": "${CurrentProductPrice}"
+    }, {
+      "id": "596d38e5-bae8-4275-8431-24752bedb540",
+      "comment": "",
+      "command": "executeScript",
+      "target": "return ${VariantIndex} + 1",
+      "targets": [],
+      "value": "VariantIndex"
+    }, {
+      "id": "5fda6cb3-dfab-4397-84a3-a18a3461b334",
+      "comment": "",
+      "command": "repeatIf",
+      "target": "${VariantIndex} < ${NumberOfVariants}",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "5f026a25-7ad0-4bdb-af68-2139f92cbb12",
+      "comment": "",
+      "command": "click",
+      "target": "css=.save-variation-changes",
+      "targets": [
+        ["css=.save-variation-changes", "css:finder"],
+        ["xpath=(//button[@type='button'])[81]", "xpath:attributes"],
+        ["xpath=//div[@id='variable_product_options_inner']/div[5]/button", "xpath:idRelative"],
+        ["xpath=//div[7]/div/div[5]/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Guardar cambios')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "5657254f-6753-4f15-9cd6-695bd3e2fe9a",
+      "comment": "",
+      "command": "open",
+      "target": "/wp-admin/edit.php?s&post_status=all&post_type=product&action=-1&product_cat&product_type&stock_status=instock&filter_action=Filtrar&action2=-1&orderby=title&order=asc",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "58864a98-ff8b-44aa-bbed-b24333209ff5",
+      "comment": "",
+      "command": "storeText",
+      "target": "xpath=//tr[${ProductIndex}]/td[5]/span",
+      "targets": [
+        ["css=#post-3106 .woocommerce-Price-amount", "css:finder"],
+        ["xpath=//tr[@id='post-3106']/td[5]/span", "xpath:idRelative"],
+        ["xpath=//tr[2]/td[5]/span", "xpath:position"],
+        ["xpath=//span[contains(.,'$ 18.900')]", "xpath:innerText"]
+      ],
+      "value": "PriceInTable"
+    }, {
+      "id": "f20597e9-ac64-4f01-87cd-8127691253b4",
+      "comment": "",
+      "command": "executeScript",
+      "target": "return ${PriceInTable}.replace(/[$.\\s]/g, \"\");",
+      "targets": [],
+      "value": "PriceInTable"
+    }, {
+      "id": "d1fdbdf3-79d5-41c0-85d5-343545cc3787",
+      "comment": "",
+      "command": "echo",
+      "target": "${PriceInTable}",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "45e03b93-2812-4bc7-be2c-cbec04af0b98",
+      "comment": "",
+      "command": "executeScript",
+      "target": "return ${PriceInTable} - ${CurrentProductPrice}",
+      "targets": [],
+      "value": "ComparePrice"
+    }, {
+      "id": "7970c492-7949-4de9-a065-3fde1f42db29",
+      "comment": "",
+      "command": "assert",
+      "target": "ComparePrice",
+      "targets": [],
+      "value": "0"
+    }, {
+      "id": "09aedb76-6dc6-4f58-8981-34b8ea0e914d",
+      "comment": "",
+      "command": "end",
       "target": "",
       "targets": [],
       "value": ""
