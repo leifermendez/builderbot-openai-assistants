@@ -20,6 +20,37 @@ const ASSISTANT_ID = process.env?.ASSISTANT_ID ?? ''
 const IA_ACTIVE = process.env?.IA_ACTIVE ?? 'false'
 const isIAActive = IA_ACTIVE === 'true'
 
+function getQuoted(ctx) {
+    try {
+        let conversation = ctx?.message?.extendedTextMessage?.contextInfo?.quotedMessage?.conversation?.trim()
+        conversation = conversation === undefined || conversation === "" ? null : conversation
+        let caption = ctx?.message?.extendedTextMessage?.contextInfo?.quotedMessage?.imageMessage?.caption.trim()
+        caption = caption === undefined || caption === "" ? null : caption
+
+        //console.log("Conversation: ")
+        //console.log(conversation)
+        //console.log("Caption: ")
+        //console.log(caption)
+        //console.log("CTX: ")
+        //console.log(ctx)
+        //console.log("quotedMessage: ")
+        //console.log(ctx?.message?.extendedTextMessage?.contextInfo?.quotedMessage)
+    
+        let quotedMessage = conversation !== undefined || conversation !== null || conversation !== "" ? conversation : null
+        if (quotedMessage == null) {
+            quotedMessage = caption !== undefined || caption !== null ? caption : null
+        }
+    
+        //console.log("quoted: ")
+        //console.log(quotedMessage)
+        return quotedMessage
+    }
+    catch (error) {
+        console.error(error)
+        return null
+    }
+}
+
 const welcomeFlow = addKeyword<Provider, Database>(EVENTS.WELCOME)
     .addAction(async (ctx, { flowDynamic, state, provider }) => {
         try {
@@ -30,17 +61,9 @@ const welcomeFlow = addKeyword<Provider, Database>(EVENTS.WELCOME)
             console.log(ctx.message)
             console.log(ctx.message.extendedTextMessage)
             console.log(ctx.message.extendedTextMessage.contextInfo)*/
-            const conversation = ctx?.message?.extendedTextMessage?.contextInfo?.quotedMessage?.conversation
-            const caption = ctx?.message?.extendedTextMessage?.contextInfo?.quotedMessage?.extendedTextMessage?.imageMessage?.caption
-
-
-            let quotedMessage = conversation !== undefined || conversation !== null ? conversation : null
-            if (quotedMessage == null) {
-                quotedMessage = caption !== undefined || caption !== null ? caption : null
-            }
-
+            
             await typing(ctx, provider)
-            await responseText(ctx.body, state, flowDynamic, quotedMessage)
+            await responseText(ctx.body, state, flowDynamic, getQuoted(ctx))
         } catch (error) {
             console.error(error)
         }
@@ -167,14 +190,7 @@ async function responseFromAI(text, state, quotedMessage) {
         return ""
     }
     const dialog = quotedMessage ? `{quote: ${quotedMessage}, text: ${text}}` : text
-    console.log("Dialog: " + dialog)
-    return ""
     const response = await toAsk(ASSISTANT_ID, dialog, state)
-    //console.log("original response:")
-    //console.log(response)
-    //response = response.replaceAll(/\[.*?\]/g, '').replaceAll(/【.*?】/g, '')
-    //console.log("format response:")
-    //console.log(response)
     return response
 }
 
@@ -197,7 +213,7 @@ const audioFlow = addKeyword<Provider, Database>(EVENTS.VOICE_NOTE)
             //const text2 = await speechToText(localPath);
             //console.log(text);
             //await flowDynamic([{ body: "En esta demo no se admite audio" }]);
-            await responseText("(Audio: " + text + ")", state, flowDynamic)
+            await responseText("(Audio: " + text + ")", state, flowDynamic, getQuoted(ctx))
         } catch (error) {
             await showResponseFlowDynamic("El audio no se puede escuchar", flowDynamic)
         }
