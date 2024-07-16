@@ -17,20 +17,43 @@ const __dirname = dirname(__filename);
 
 const PORT = process.env?.PORT ?? 3008
 const ASSISTANT_ID = process.env?.ASSISTANT_ID ?? ''
+const IA_ACTIVE = process.env?.IA_ACTIVE ?? 'false'
+const isIAActive = IA_ACTIVE === 'true'
 
 const welcomeFlow = addKeyword<Provider, Database>(EVENTS.WELCOME)
     .addAction(async (ctx, { flowDynamic, state, provider }) => {
         try {
+            /*console.log("Welcome Flow")
+            console.log(ctx)
+            //console.log(state)
+            //console.log(provider)
+            console.log(ctx.message)
+            console.log(ctx.message.extendedTextMessage)
+            console.log(ctx.message.extendedTextMessage.contextInfo)*/
+            const conversation = ctx?.message?.extendedTextMessage?.contextInfo?.quotedMessage?.conversation
+            const caption = ctx?.message?.extendedTextMessage?.contextInfo?.quotedMessage?.extendedTextMessage?.imageMessage?.caption
+
+
+            let quotedMessage = conversation !== undefined || conversation !== null ? conversation : null
+            if (quotedMessage == null) {
+                quotedMessage = caption !== undefined || caption !== null ? caption : null
+            }
+
             await typing(ctx, provider)
-            await responseText(ctx.body, state, flowDynamic)
+            await responseText(ctx.body, state, flowDynamic, quotedMessage)
         } catch (error) {
             console.error(error)
         }
     })
 
-async function responseText(text: string, state: any, flowDynamic: any) {
+
+async function responseText(text: string, state: any, flowDynamic: any, quotedMessage: string | null = null) {
     //console.log("Response Text Start")
-    const response = await responseFromAI(text, state)
+    const response = await responseFromAI(text, state, quotedMessage)
+    if (response == "") {
+        await flowDynamic([{ body: "Ahora mismo no puedo responder" }])
+        return
+    }
     //console.log("Response From AI")
     const chunks = response.split(/\n\n+/);
     for (const chunk of chunks) {
@@ -58,16 +81,16 @@ async function showResponseFlowDynamic(chunk, flowDynamic) {
     //\[ 120 \text{ pares} \times \$14,000 \text{ por par} = \$1,680,000 \]
     //to 
     // 120 pares x $14,000 por par = $1,680,000
-     // Paso 1: Remover los delimitadores de LaTeX
-     formatChunk = formatChunk.replaceAll(/\\\[/g, '').replace(/\\\]/g, '');
-    
+    // Paso 1: Remover los delimitadores de LaTeX
+    formatChunk = formatChunk.replaceAll(/\\\[/g, '').replace(/\\\]/g, '');
+
     // Paso 2: Remover \text{...}
     formatChunk = formatChunk.replaceAll(/\\text\{([^}]+)\}/g, '$1');
-    
+
     // Paso 3: Reemplazar \times con x
     formatChunk = formatChunk.replaceAll(/\\times/g, 'x');
     formatChunk = formatChunk.replaceAll('**', '*');
-    
+
     //if format chunk termina en - Imagen: remove
     formatChunk = formatChunk.replace(/- Imagen:$/, '')
 
@@ -79,7 +102,7 @@ async function showResponseFlowDynamic(chunk, flowDynamic) {
 
     //if formatChunk is empty change
 
-    if (formatChunk.trim() == ""){
+    if (formatChunk.trim() == "") {
         formatChunk = "."
     }
 
@@ -139,8 +162,14 @@ async function showResponseFlowDynamic(chunk, flowDynamic) {
 
 }
 
-async function responseFromAI(text, state) {
-    const response = await toAsk(ASSISTANT_ID, text, state)
+async function responseFromAI(text, state, quotedMessage) {
+    if (!isIAActive) {
+        return ""
+    }
+    const dialog = quotedMessage ? `{quote: ${quotedMessage}, text: ${text}}` : text
+    console.log("Dialog: " + dialog)
+    return ""
+    const response = await toAsk(ASSISTANT_ID, dialog, state)
     //console.log("original response:")
     //console.log(response)
     //response = response.replaceAll(/\[.*?\]/g, '').replaceAll(/【.*?】/g, '')
@@ -152,7 +181,7 @@ async function responseFromAI(text, state) {
 const audioFlow = addKeyword<Provider, Database>(EVENTS.VOICE_NOTE)
     .addAction(async (ctx, { flowDynamic, state, provider }) => {
         try {
-            await recording(ctx, provider)
+            await typing(ctx, provider)
             console.log(ctx)
 
             console.log(__dirname)
@@ -161,6 +190,10 @@ const audioFlow = addKeyword<Provider, Database>(EVENTS.VOICE_NOTE)
             console.log(localPath)
 
             const text = await speechToText(localPath);
+            if (text == "") {
+                await showResponseFlowDynamic("Ahora mismo no puedo escuchar", flowDynamic)
+                return
+            }
             //const text2 = await speechToText(localPath);
             //console.log(text);
             //await flowDynamic([{ body: "En esta demo no se admite audio" }]);
@@ -170,8 +203,58 @@ const audioFlow = addKeyword<Provider, Database>(EVENTS.VOICE_NOTE)
         }
     })
 
+
+const documentFlow = addKeyword<Provider, Database>(EVENTS.DOCUMENT)
+    .addAction(async (ctx, { flowDynamic, state, provider }) => {
+        console.log("Document Flow")
+        console.log(ctx)
+        console.log(state)
+        console.log(provider)
+    })
+
+const locationFlow = addKeyword<Provider, Database>(EVENTS.LOCATION)
+    .addAction(async (ctx, { flowDynamic, state, provider }) => {
+        console.log("Location Flow")
+        console.log(ctx)
+        console.log(state)
+        console.log(provider)
+    })
+
+const mediaFlow = addKeyword<Provider, Database>(EVENTS.MEDIA)
+    .addAction(async (ctx, { flowDynamic, state, provider }) => {
+        console.log("Media Flow")
+        console.log(ctx)
+        console.log(state)
+        console.log(provider)
+    })
+
+const orderFlow = addKeyword<Provider, Database>(EVENTS.ORDER)
+    .addAction(async (ctx, { flowDynamic, state, provider }) => {
+        console.log("Order Flow")
+        console.log(ctx)
+        console.log(state)
+        console.log(provider)
+    })
+
+const templateFlow = addKeyword<Provider, Database>(EVENTS.TEMPLATE)
+    .addAction(async (ctx, { flowDynamic, state, provider }) => {
+        console.log("Template Flow")
+        console.log(ctx)
+        console.log(state)
+        console.log(provider)
+    })
+
+
+const actionFlow = addKeyword<Provider, Database>(EVENTS.ACTION)
+    .addAction(async (ctx, { flowDynamic, state, provider }) => {
+        console.log("Action Flow")
+        console.log(ctx)
+        console.log(state)
+        console.log(provider)
+    })
+
 const main = async () => {
-    const adapterFlow = createFlow([welcomeFlow, audioFlow])
+    const adapterFlow = createFlow([welcomeFlow, audioFlow, documentFlow, locationFlow, mediaFlow, orderFlow, templateFlow, actionFlow])
     const adapterProvider = createProvider(Provider)
     const adapterDB = new Database()
 
@@ -188,12 +271,15 @@ const main = async () => {
 const openai = new OpenAI();
 
 async function speechToText(filePath) {
+    if (!isIAActive) {
+        return ""
+    }
     const transcription = await openai.audio.transcriptions.create({
         file: fs.createReadStream(filePath),
         model: "whisper-1",
     });
-    console.log("Transcription:");
-    console.log(transcription.text);
+    //console.log("Transcription:");
+    //console.log(transcription.text);
     return transcription.text;
 }
 
