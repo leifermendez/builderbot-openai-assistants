@@ -13,6 +13,7 @@ export function startBotFacebook(){
     app.post('/webhook', (req, res) => {
       console.log('Webhook in post recibido:');
       console.log(req.body.entry);
+      console.log('Webhook verificado');
       console.log(req.body);
       //console.log('Webhook verificado');
       //console.log('Query:');
