@@ -1,13 +1,15 @@
-import "dotenv/config";
+import "dotenv/config"
+
+import { startBotWhatsApp } from "./bots/whatsapp";
+import { startBotFacebook } from "./bots/facebook";
 
 const activeWhatsApp = process.env.BOT_WHATSAPP_SUPPORT;
 if (activeWhatsApp === 'true') {
-    const { startBotWhatsApp } = await import("./bots/whatsapp");
     startBotWhatsApp();
 }
 
 const activeFacebook = process.env.BOT_FACEBOOK_SUPPORT;
 if (activeFacebook === 'true') {
-    const { startBotFacebook } = await import("./bots/facebook");
     startBotFacebook();
 }
+
