@@ -14,6 +14,8 @@ export function startBotFacebook(){
       console.log('Webhook in post recibido:');
       console.log(req);
       console.log('Webhook verificado');
+      console.log('Query:');
+      console.log(req.query);
       
       // Verificar que el webhook proviene de Facebook
       if (req.query['hub.mode'] === 'subscribe' &&
