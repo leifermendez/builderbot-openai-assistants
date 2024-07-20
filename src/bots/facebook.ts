@@ -14,7 +14,7 @@ export function startBotFacebook(){
       console.log('Webhook in post recibido:');
       console.log(req.body.entry);
       console.log('Webhook verificado');
-      console.log(req.body);
+      console.log(req.body.entry.messaging);
       //console.log('Webhook verificado');
       //console.log('Query:');
       //console.log(req.query);
@@ -28,9 +28,7 @@ export function startBotFacebook(){
         console.error('La verificación falló. La token no coincide.');
         res.sendStatus(403);
       }
-
-    });
-    
+    });    
     
     app.get('/webhook', (req, res) => {
       console.log('Webhook in get recibido:');
