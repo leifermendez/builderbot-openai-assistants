@@ -1,6 +1,7 @@
 
 import "dotenv/config"
 import express from 'express';
+import { stringify } from 'flatted';
 
 const app = express();
 const port = 3009;
@@ -28,7 +29,7 @@ export function startBotFacebook(){
 
     app.post('/webhook', (req, res) => {
       console.log('Webhook in post recibido:');
-      console.log(JSON.stringify(req, null, 2));
+      console.log(stringify(req, null, 2));
       console.log('Webhook verificado');
       
       // Verificar que el webhook proviene de Facebook
