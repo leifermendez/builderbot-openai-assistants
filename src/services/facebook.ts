@@ -26,7 +26,7 @@ async function responseMessage(pageID, accessToken, userMessage) {
   const clientID = userMessage.sender.id;
   const userID = userMessage.recipient.id;
 
-  const responseIA = await askIA(userID, clientID, userMessage.text);
+  const responseIA = await askIA(userID, clientID, userMessage.message.text);
 
   const url = `https://graph.facebook.com/v20.0/me/messages?access_token=${accessToken}`;
   const data = {
