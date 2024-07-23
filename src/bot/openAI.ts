@@ -24,7 +24,10 @@ export async function askIA(userId, clientID, message) {
     
     const stream = await openai.beta.threads.runs.create(
         thread.id,
-        { assistant_id: "asst_123", stream: true }
+        { 
+            assistant_id: process.env.ASSISTANT_ID,
+            stream: true
+        }
       );
     
       
