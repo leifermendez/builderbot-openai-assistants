@@ -24,8 +24,88 @@ function printDeep(object, level = 0) {
   fileLog(object);
 }
 
+function responseMessage(pageID, accessToken, response) {
+  /*
+  curl -X POST -H "Content-Type: application/json" -d '{
+    "recipient":{
+      "id":"{PSID}"
+    },
+    "messaging_type": "RESPONSE",
+    "message":{
+      "text":"Hello, world!"
+    }
+  }' "https://graph.facebook.com/v20.0/{PAGE-ID}/messages?access_token={PAGE-ACCESS-TOKEN}"
+      
+  */
+
+  const url = `https://graph.facebook.com/v20.0/${pageID}/messages?access_token=${accessToken}`;
+  const data = {
+    "recipient": {
+      "id": response.sender.id
+    },
+    "messaging_type": "RESPONSE",
+    "message": {
+      "text": "Hello, world!"
+    }
+  };
+  const options = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(data)
+  };
+
+  fetch(url, options)
+    .then(response => response.json())
+    .then(data => {
+      console.log(data);
+      fileLog(data);
+    })
+    .catch((error) => {
+      console.error('Error:', error);
+      fileLog(error);
+    });
+}
+
 
 function webhookHandler(req, res) {
+  /*
+
+  🟪 Received webhook:
+  {
+    object: 'page',
+    entry: [
+      { time: 1721765646608, id: '391605557364637', messaging: [Array] }
+    ]
+  }
+  🟪 Entry:
+  {
+    time: 1721765646608,
+    id: '391605557364637',
+    messaging: [
+      {
+        sender: [Object],
+        recipient: [Object],
+        timestamp: 1721765645907,
+        message: [Object]
+      }
+    ]
+  }
+  🟪 WebhookEvent:
+  {
+    sender: { id: '7980168192028663' },
+    recipient: { id: '391605557364637' },
+    timestamp: 1721765645907,
+    message: {
+      mid: 'm_qj5VIfblHfzB0oVFdfmHPjkD7BlyR7NaR31cRF2aH961R_Ts1D-Qgts2Cm5BRsOiGXFggqz6IxPjXok-REShDQ',
+      text: 'x8',
+      reply_to: {
+        mid: 'm_CwPXUSt_e6bxNWHkrMXnGjkD7BlyR7NaR31cRF2aH96jE2tljRzjqDnYqvqmEsYcmoOIk4kzjPvhrrJ50m4l3Q'
+      }
+    }
+  }
+  */
   const body = req.body;
 
   console.log(`\u{1F7EA} Received webhook:`);
@@ -55,6 +135,14 @@ function webhookHandler(req, res) {
         fileLog(webhookEvent);
       });
     });
+
+    //response to facebook
+    responseMessage(
+      body.entry[0].id,
+      process.env.FACEBOOK_PAGE_ACCESS_TOKEN,
+      body.entry[0].messaging[0]
+    );
+      
   } else {
     // Return a '404 Not Found' if event is not from a page subscription
     res.sendStatus(404);
