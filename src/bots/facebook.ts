@@ -1,7 +1,8 @@
 
 import "dotenv/config"
 import express from 'express';
-import { fileLog, lastFilePath } from "~/utils/filelog";
+import { fileLog, lastLogName, lastLogPath } from "~/utils/filelog";
+import { mainPath } from "~/utils/path";
 
 const app = express();
 const port = 3009;
@@ -36,17 +37,18 @@ function webhookHandler(req, res, method) {
   //console.log("stringify")
   //console.log(stringify(req, null, 2));
   printDeep(req);
+  console.log(`Archivo ${lastLogName} creado`);
   //console.log("Main log");
   //console.log(req);
   /*fs.writeFile(method + '_webhook.txt', stringify(req, null, 2), function (err) {
     if (err) throw err;
     console.log(`Archivo ${method}_webhook.txt creado`);
   });*/
-  
+
   // Verificar que el webhook proviene de Facebook
   if (req.query['hub.mode'] === 'subscribe' &&
-      req.query['hub.verify_token'] === validToken) {
-        
+    req.query['hub.verify_token'] === validToken) {
+
     res.status(200).send(req.query['hub.challenge']);
   } else {
     console.error('La verificación falló. La token no coincide.');
@@ -54,31 +56,27 @@ function webhookHandler(req, res, method) {
   }
 }
 
-export function startBotFacebook(){
+export function startBotFacebook() {
 
-    app.use(express.json()); // Middleware para parsear JSON
+  app.use(express.json()); // Middleware para parsear JSON
 
-    
-    app.post('/webhook', (req, res) => {
-      webhookHandler(req, res, 'post');
-    });
-    
-    app.get('/webhook', (req, res) => {
-      webhookHandler(req, res, 'get');
-    });
 
-    app.get('/downloadPost', (req, res) => {
-      const fileName = req.query['fileName']
-      const path = !fileName ? `./logs/${lastFilePath}` : `./logs/${fileName}`
-      res.download(path);
-    });
-    
-    app.get('/downloadGet', (req, res) => {
-      res.download('debug.log');
-    });
+  app.post('/webhook', (req, res) => {
+    webhookHandler(req, res, 'post');
+  });
 
-    app.listen(port, () => {
-      console.log(`Servidor escuchando en http://localhost:${port}/webhook`);
-    });
+  app.get('/webhook', (req, res) => {
+    webhookHandler(req, res, 'get');
+  });
+
+  app.get('/downloadLog', (req, res) => {
+    const fileName = req.query['fileName']
+    const path = !fileName ? `${lastLogPath}` : `${mainPath}/logs/${fileName}`
+    res.download(path);
+  });
+
+  app.listen(port, () => {
+    console.log(`Servidor escuchando en http://localhost:${port}/webhook`);
+  });
 }
 
