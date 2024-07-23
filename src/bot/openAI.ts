@@ -16,12 +16,14 @@ async function getThread(userId, clientID) {
 
 export async function askIA(userId, clientID, message) {
     // get assistant
-    const assistant = await openai.beta.assistants.retrieve(process.env.ASSISTANT_ID);
+    //const assistant = await openai.beta.assistants.retrieve(process.env.ASSISTANT_ID);
     
     // get or create thread for user-client
+    console.log("askIA-1");
     const thread = await getThread(userId, clientID);
 
     
+    console.log("askIA-2");
     const stream = await openai.beta.threads.runs.create(
         thread.id,
         { 
@@ -31,15 +33,18 @@ export async function askIA(userId, clientID, message) {
       );
     
       
+    console.log("askIA-3");
+    console.log("message: ", message);
     // add message to thread using assistant
     const messageAI = await openai.beta.threads.messages.create(
         thread.id,
         {
             role: "user",
-            content: message,
+            content: message
         }
     );
 
+    console.log("askIA-4");
     for await (const event of stream) {
         console.log(event);
         fileLog(event);
