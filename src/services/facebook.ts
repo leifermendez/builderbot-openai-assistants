@@ -1,6 +1,7 @@
 
 import "dotenv/config"
 import express from 'express';
+import { askIA } from "~/bot/openAI";
 import { fileLog, lastLogName, lastLogPath } from "~/utils/filelog";
 import { mainPath } from "~/utils/path";
 
@@ -8,23 +9,7 @@ const app = express();
 const port = 3009;
 const validToken = process.env.FACEBOOK_VALIDATION_TOKEN
 
-
-function printDeep(object, level = 0) {
-  if (level > 5) {
-    return null;
-  }
-  Object.keys(object).forEach(function (key) {
-    if (object[key] !== null && typeof object[key] === 'object') {
-      fileLog('key:');
-      fileLog(key)
-      printDeep(object[key], level + 1);
-    }
-  });
-  fileLog('object:');
-  fileLog(object);
-}
-
-function responseMessage(pageID, accessToken, response) {
+async function responseMessage(pageID, accessToken, userMessage) {
   /*
   curl -X POST -H "Content-Type: application/json" -d '{
     "recipient":{
@@ -38,14 +23,19 @@ function responseMessage(pageID, accessToken, response) {
       
   */
 
-  const url = `https://graph.facebook.com/v20.0/${pageID}/messages?access_token=${accessToken}`;
+  const clientID = userMessage.sender.id;
+  const userID = userMessage.recipient.id;
+
+  const responseIA = await askIA(userID, clientID, userMessage.text);
+
+  const url = `https://graph.facebook.com/v20.0/me/messages?access_token=${accessToken}`;
   const data = {
     "recipient": {
-      "id": response.sender.id
+      "id": userMessage.sender.id
     },
     "messaging_type": "RESPONSE",
     "message": {
-      "text": "Hello, world!"
+      "text": responseIA
     }
   };
   const options = {
@@ -180,4 +170,3 @@ export function startBotFacebook() {
     console.log(`Servidor escuchando en http://localhost:${port}/webhook`);
   });
 }
-
