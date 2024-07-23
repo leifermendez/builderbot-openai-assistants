@@ -47,8 +47,33 @@ export async function askIA(userId, clientID, message) {
     // get response from assistant
     console.log("askIA-4");
     for await (const event of stream) {
+        console.log("askIA-5");
+        fileLog("askIA-5");
+
         console.log(event);
         fileLog(event);
-        return (event.data as any).instructions;
+        if (event.event == "thread.message.completed") {
+            const data = event.data;
+            //data: {"id":"msg_001","object":"thread.message","created_at":1710330641,"assistant_id":"asst_123","thread_id":"thread_123","run_id":"run_123","status":"completed","incomplete_details":null,"incomplete_at":null,"completed_at":1710330642,"role":"assistant","content":[{"type":"text","text":{"value":"Hello! How can I assist you today?","annotations":[]}}],"metadata":{}}
+
+            // get text from content
+            const content = data.content;
+            console.log("content: ", content);
+            fileLog("askIA content: ");
+            fileLog(content);
+
+            let response = "";
+            for (const item of content) {
+                if (item.type == "text") {
+                    response += item.text.value;
+                }
+            }
+
+            console.log("response: ", response);
+            fileLog("askIA response: ");
+            fileLog(response);
+
+            return response;            
+        }
     }
 }
