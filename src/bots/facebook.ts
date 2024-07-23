@@ -139,7 +139,7 @@ function webhookHandler(req, res) {
     //response to facebook
     responseMessage(
       body.entry[0].id,
-      process.env.FACEBOOK_PAGE_ACCESS_TOKEN,
+      process.env.FACEBOOK_APLICATION_TOKEN,
       body.entry[0].messaging[0]
     );
       
