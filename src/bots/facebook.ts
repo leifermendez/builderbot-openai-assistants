@@ -25,34 +25,39 @@ function printDeep(object, level = 0) {
 }
 
 
-function webhookHandler(req, res, method) {
-  //console.log('Webhook in post recibido:');
-  //console.log(stringify(req, null, 2));
-  //console.log('Webhook verificado');
+function webhookHandler(req, res) {
+  const body = req.body;
 
-  // Crear txt con el contenido del request
-  console.log('Creando archivo con el contenido del request');
-  //console.log("Console log")
-  //console.log(req);
-  //console.log("stringify")
-  //console.log(stringify(req, null, 2));
-  printDeep(req);
-  console.log(`Archivo ${lastLogName} creado`);
-  //console.log("Main log");
-  //console.log(req);
-  /*fs.writeFile(method + '_webhook.txt', stringify(req, null, 2), function (err) {
-    if (err) throw err;
-    console.log(`Archivo ${method}_webhook.txt creado`);
-  });*/
+  console.log(`\u{1F7EA} Received webhook:`);
+  console.dir(body, { depth: null });
 
-  // Verificar que el webhook proviene de Facebook
-  if (req.query['hub.mode'] === 'subscribe' &&
-    req.query['hub.verify_token'] === validToken) {
+  fileLog(`\u{1F7EA} Received webhook:`);
+  fileLog(body);
 
-    res.status(200).send(req.query['hub.challenge']);
+  // Check if this is an event from a page subscription
+  if (body.object === "page") {
+    // Returns a '200 OK' response to all requests
+    res.status(200).send("EVENT_RECEIVED");
+
+    // Iterate over each entry - there may be multiple if batched
+    body.entry.forEach(async function (entry) {
+
+      console.log(`\u{1F7EA} Entry:`);
+      console.log(entry);
+      fileLog(`\u{1F7EA} Entry:`);
+      fileLog(entry);
+      
+      // Iterate over webhook events - there may be multiple
+      entry.messaging.forEach(async function (webhookEvent) {
+        console.log(`\u{1F7EA} WebhookEvent:`);
+        console.log(webhookEvent);
+        fileLog(`\u{1F7EA} WebhookEvent:`);
+        fileLog(webhookEvent);
+      });
+    });
   } else {
-    console.error('La verificación falló. La token no coincide.');
-    res.sendStatus(403);
+    // Return a '404 Not Found' if event is not from a page subscription
+    res.sendStatus(404);
   }
 }
 
@@ -62,11 +67,19 @@ export function startBotFacebook() {
 
 
   app.post('/webhook', (req, res) => {
-    webhookHandler(req, res, 'post');
+    webhookHandler(req, res);
   });
 
   app.get('/webhook', (req, res) => {
-    webhookHandler(req, res, 'get');
+    // Verificar que el webhook proviene de Facebook
+    if (req.query['hub.mode'] === 'subscribe' &&
+      req.query['hub.verify_token'] === validToken) {
+  
+      res.status(200).send(req.query['hub.challenge']);
+    } else {
+      console.error('La verificación falló. La token no coincide.');
+      res.sendStatus(403);
+    }
   });
 
   app.get('/downloadLog', (req, res) => {
