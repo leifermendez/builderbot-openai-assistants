@@ -49,6 +49,6 @@ export async function askIA(userId, clientID, message) {
     for await (const event of stream) {
         console.log(event);
         fileLog(event);
-        return event;
+        return (event.data as any).instructions;
     }
 }
