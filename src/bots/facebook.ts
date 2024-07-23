@@ -1,28 +1,28 @@
 
 import "dotenv/config"
 import express from 'express';
-import { stringify } from 'flatted';
-import fs from "fs"; // Add this line to import the 'fs' module
+import { fileLog, lastFilePath } from "~/utils/filelog";
 
 const app = express();
 const port = 3009;
 const validToken = process.env.FACEBOOK_VALIDATION_TOKEN
 
-function cloneObjectWithProperties(originalObject, newObject) {
-  for (const key in originalObject) {
-    // eslint-disable-next-line no-prototype-builtins
-    if (originalObject.hasOwnProperty(key)) {
-      // check if the property/key is object
-      if (typeof originalObject[key] === 'object') {
-        // call the function recursively
-        newObject[key] = {};
-        cloneObjectWithProperties(originalObject[key], newObject[key]);
-      } else {
-        newObject[key] = originalObject[key];
-      }
-    }
+
+function printDeep(object, level = 0) {
+  if (level > 5) {
+    return null;
   }
+  Object.keys(object).forEach(function (key) {
+    if (object[key] !== null && typeof object[key] === 'object') {
+      fileLog('key:');
+      fileLog(key)
+      printDeep(object[key], level + 1);
+    }
+  });
+  fileLog('object:');
+  fileLog(object);
 }
+
 
 function webhookHandler(req, res, method) {
   //console.log('Webhook in post recibido:');
@@ -30,10 +30,18 @@ function webhookHandler(req, res, method) {
   //console.log('Webhook verificado');
 
   // Crear txt con el contenido del request
-  fs.writeFile(method + '_webhook.txt', stringify(req, null, 2), function (err) {
+  console.log('Creando archivo con el contenido del request');
+  //console.log("Console log")
+  //console.log(req);
+  //console.log("stringify")
+  //console.log(stringify(req, null, 2));
+  printDeep(req);
+  //console.log("Main log");
+  //console.log(req);
+  /*fs.writeFile(method + '_webhook.txt', stringify(req, null, 2), function (err) {
     if (err) throw err;
     console.log(`Archivo ${method}_webhook.txt creado`);
-  });
+  });*/
   
   // Verificar que el webhook proviene de Facebook
   if (req.query['hub.mode'] === 'subscribe' &&
@@ -60,14 +68,17 @@ export function startBotFacebook(){
     });
 
     app.get('/downloadPost', (req, res) => {
-      res.download('post_webhook.txt');
+      const fileName = req.query['fileName']
+      const path = !fileName ? `./logs/${lastFilePath}` : `./logs/${fileName}`
+      res.download(path);
     });
     
     app.get('/downloadGet', (req, res) => {
-      res.download('get_webhook.txt');
+      res.download('debug.log');
     });
 
     app.listen(port, () => {
       console.log(`Servidor escuchando en http://localhost:${port}/webhook`);
     });
 }
+

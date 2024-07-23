@@ -18,22 +18,21 @@
     "@builderbot/provider-baileys": "1.1.7",
     "dotenv": "16.4.5",
     "express": "4.19.2",
-    "flatted": "^3.3.1",
-    "openai": "4.52.7",
+    "openai": "4.53.0",
     "sharp": "^0.33.4"
   },
   "devDependencies": {
     "@types/multer": "1.4.11",
-    "@types/node": "20.11.30",
-    "@typescript-eslint/eslint-plugin": "7.2.0",
-    "@typescript-eslint/parser": "7.4.0",
+    "@types/node": "20.14.11",
+    "@typescript-eslint/eslint-plugin": "7.17.0",
+    "@typescript-eslint/parser": "7.17.0",
     "eslint": "^8.57.0",
     "eslint-plugin-builderbot": "latest",
-    "nodemon": "3.1.0",
-    "rollup": "4.10.0",
+    "nodemon": "3.1.4",
+    "rollup": "4.19.0",
     "rollup-plugin-typescript2": "0.36.0",
-    "tsx": "4.7.1",
-    "typescript": "5.4.3"
+    "tsx": "4.16.2",
+    "typescript": "5.5.4"
   },
   "author": "",
   "license": "ISC"
