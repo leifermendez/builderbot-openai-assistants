@@ -26,7 +26,8 @@ async function responseMessage(pageID, accessToken, userMessage) {
   const clientID = userMessage.sender.id;
   const userID = userMessage.recipient.id;
 
-  const responseIA = await askIA(userID, clientID, userMessage.message.text);
+  //const responseIA = await askIA(userID, clientID, userMessage.message.text);
+  const responseIA = "Hello, world!";
   console.log(`\u{1F7EA} Response IA: ${responseIA}`);
   fileLog(`\u{1F7EA} Response IA: ${responseIA}`);
 
