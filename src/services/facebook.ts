@@ -31,34 +31,42 @@ async function responseMessage(pageID, accessToken, userMessage) {
   console.log(`\u{1F7EA} Response IA: ${responseIA}`);
   fileLog(`\u{1F7EA} Response IA: ${responseIA}`);
 
+  
+  
   const url = `https://graph.facebook.com/v20.0/me/messages?access_token=${accessToken}`;
-  const data = {
-    "recipient": {
-      "id": userMessage.sender.id
-    },
-    "messaging_type": "RESPONSE",
-    "message": {
-      "text": responseIA
-    }
-  };
-  const options = {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(data)
-  };
+  
+  const chunks = responseIA.split(/\n\n+/);
 
-  fetch(url, options)
-    .then(response => response.json())
-    .then(data => {
-      console.log(data);
-      fileLog(data);
-    })
-    .catch((error) => {
-      console.error('Error:', error);
-      fileLog(error);
-    });
+  for (let i = 0; i < chunks.length; i++) {
+
+    const data = {
+      "recipient": {
+        "id": userMessage.sender.id
+      },
+      "messaging_type": "RESPONSE",
+      "message": {
+        "text": chunks[i]
+      }
+    };
+    const options = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data)
+    };
+
+    fetch(url, options)
+      .then(response => response.json())
+      .then(data => {
+        console.log(data);
+        fileLog(data);
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+        fileLog(error);
+      });
+  }
 }
 
 
