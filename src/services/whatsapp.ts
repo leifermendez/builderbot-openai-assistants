@@ -10,6 +10,7 @@ import { dirname } from "path"
 import { fileURLToPath } from "url";
 import { ImagePathList } from "../ImagePathList";
 import { speechToText } from "../audioToText/audioToText"
+import { formatAIResponse } from "./formatAIResponse"
 
 
 const __filename = fileURLToPath(import.meta.url);
@@ -39,6 +40,36 @@ const welcomeFlow = addKeyword<Provider, Database>(EVENTS.WELCOME)
     })
 
 
+interface ISenderManager {
+    formatChunk: (chunk: string) => string
+    getImages: (chunk: string) => string[]
+    sendText: (text: string) => void
+    sendImage: (url: string) => void
+    sendImageAndText: (text: string, url: string) => void
+}
+
+interface AgentManager {
+    ask: (text: string) => Promise<string>
+}
+
+class ResponseManager {
+    sender: ISenderManager
+
+    constructor(sender: ISenderManager, ) {
+        this.sender = sender
+    }
+
+    async responseText(text: string) {
+
+    }
+
+    
+    async responseAudio(path: string) {
+
+    }
+}
+
+
 async function responseText(text: string, state: any, flowDynamic: any, quotedMessage: string | null = null) {
     //console.log("Response Text Start")
     const response = await responseFromAI(text, state, quotedMessage)
@@ -56,47 +87,7 @@ async function responseText(text: string, state: any, flowDynamic: any, quotedMe
 async function showResponseFlowDynamic(chunk, flowDynamic) {
     //Original chunk: Antonella - Tallas 27 al 33, Precio: $4,400, Color: Negro ![Antonella](attachment:3-Antonella)
     //Format chunk:  Antonella - Tallas 27 al 33, Precio: $4,400, Color: Negro
-    let formatChunk = chunk
-        //.replaceAll(/\[.*?\]/g, '')
-        .replaceAll(/【.*?】/g, '')
-        //remove ![Antonella](attachment:3-Antonella)
-        //.replaceAll(/!\[.*?]\(.*?\)/g, '')
-        .replaceAll(/!\[.*?]\(image:(.*?)\)/g, '')
-        //remove [image:9-Stefany]
-        .replaceAll(/\[image:[^\]]+\]/g, '')
-        .replaceAll(": .", ':')
-        .replaceAll(":.", ':')
-        .trim()
-        ;
-
-    // Format from
-    //\[ 120 \text{ pares} \times \$14,000 \text{ por par} = \$1,680,000 \]
-    //to 
-    // 120 pares x $14,000 por par = $1,680,000
-    // Paso 1: Remover los delimitadores de LaTeX
-    formatChunk = formatChunk.replaceAll(/\\\[/g, '').replace(/\\\]/g, '');
-
-    // Paso 2: Remover \text{...}
-    formatChunk = formatChunk.replaceAll(/\\text\{([^}]+)\}/g, '$1');
-
-    // Paso 3: Reemplazar \times con x
-    formatChunk = formatChunk.replaceAll(/\\times/g, 'x');
-    formatChunk = formatChunk.replaceAll('**', '*');
-
-    //if format chunk termina en - Imagen: remove
-    formatChunk = formatChunk.replace(/- Imagen:$/, '')
-
-    //if formatChunk termina en - remove
-    formatChunk = formatChunk.replace(/-$/, '')
-
-    // if formatChunk termina en : remove
-    formatChunk = formatChunk.replace(/:$/, '')
-
-    //if formatChunk is empty change
-
-    if (formatChunk.trim() == "") {
-        formatChunk = "."
-    }
+    const formatChunk = formatAIResponse(chunk)
 
     //get Images
 

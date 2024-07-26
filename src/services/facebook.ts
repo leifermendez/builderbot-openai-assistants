@@ -4,6 +4,7 @@ import express from 'express';
 import { askIA } from "~/bot/openAI";
 import { fileLog, lastLogName, lastLogPath } from "~/utils/filelog";
 import { mainPath } from "~/utils/path";
+import { formatAIResponse } from "./formatAIResponse";
 
 const app = express();
 const port = 3009;
@@ -23,8 +24,16 @@ async function responseMessage(pageID, accessToken, userMessage) {
       
   */
 
+  if (userMessage.message.text == undefined || userMessage.message.text == "") {
+    return
+  }
+
   const clientID = userMessage.sender.id;
   const userID = userMessage.recipient.id;
+
+  if (clientID == '391605557364637'){ // This is the ID of the page
+    return
+  }
 
   const responseIA = await askIA(userID, clientID, userMessage.message.text);
   //const responseIA = "Hello, world!";
@@ -39,15 +48,31 @@ async function responseMessage(pageID, accessToken, userMessage) {
 
   for (let i = 0; i < chunks.length; i++) {
 
+    const formatChunk = formatAIResponse(chunks[i]);
+
+
     const data = {
       "recipient": {
         "id": userMessage.sender.id
       },
       "messaging_type": "RESPONSE",
       "message": {
-        "text": chunks[i]
+        "text": formatChunk
       }
     };
+
+    /* Exanple data
+    {
+      "recipient":{
+        "id":"{PSID}"
+      },
+      "messaging_type": "RESPONSE",
+      "message":{
+        "text":"Hello, world!"
+      }
+    }
+
+    */
     const options = {
       method: 'POST',
       headers: {
