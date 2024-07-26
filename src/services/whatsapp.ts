@@ -149,7 +149,7 @@ const audioFlow = addKeyword<Provider, Database>(EVENTS.VOICE_NOTE)
             //const text2 = await speechToText(localPath);
             //console.log(text);
             //await flowDynamic([{ body: "En esta demo no se admite audio" }]);
-            await responseText("(Audio: " + text + ")", state, flowDynamic, getQuoted(ctx))
+            await responseText(text, state, flowDynamic, getQuoted(ctx))
         } catch (error) {
             await showResponseFlowDynamic("Ahora mismo no puedo escuchar", flowDynamic)
         }

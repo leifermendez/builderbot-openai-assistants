@@ -5,58 +5,10 @@ import { askIA } from "~/bot/openAI";
 import { fileLog, lastLogName, lastLogPath } from "~/utils/filelog";
 import { mainPath } from "~/utils/path";
 import { formatAIResponse } from "./formatAIResponse";
-import { speechToText } from "~/audioToText/audioToText";
 
 const app = express();
 const port = 3009;
 const validToken = process.env.FACEBOOK_VALIDATION_TOKEN
-
-
-interface ISenderManager {
-  formatChunk: (chunk: string) => string
-  getImages: (chunk: string) => string[]
-  sendText: (text: string) => void
-  sendImage: (url: string) => void
-  sendImageAndText: (text: string, url: string) => void
-}
-
-interface IAgentManager {
-  ask: (text: string, from:string, to:string) => Promise<string>
-}
-
-class ResponseManager {
-  sender: ISenderManager
-  agent: IAgentManager
-
-  constructor(sender: ISenderManager, agent: IAgentManager){
-    this.sender = sender
-    this.agent = agent
-  }
-
-  getChunks(text:string){
-    return text.split(/\n\n+/);
-  }
-
-  async responseText(text: string, from: string, to: string) {
-    const chunks = this.getChunks(text);
-    chunks.map(async (chunk) => {
-      const formatChunk = this.sender.formatChunk(chunk);
-      const images = this.sender.getImages(chunk);
-      if (images.length > 0){
-        this.sender.sendImageAndText(formatChunk, images[0]);
-      } else {
-        this.sender.sendText(formatChunk);
-      }
-    });
-  }
-
-  
-  async responseAudio(path: string, from: string, to: string) {
-    const text = await speechToText(path);
-    const chunks = this.getChunks(text);
-
-  }
-}
 
 
 async function responseMessage(pageID, accessToken, userMessage) {
@@ -80,7 +32,7 @@ async function responseMessage(pageID, accessToken, userMessage) {
   const clientID = userMessage.sender.id;
   const userID = userMessage.recipient.id;
 
-  if (clientID == '391605557364637'){ // This is the ID of the page
+  if (clientID == '391605557364637') { // This is the ID of the page
     return
   }
 
@@ -89,10 +41,10 @@ async function responseMessage(pageID, accessToken, userMessage) {
   console.log(`\u{1F7EA} Response IA: ${responseIA}`);
   fileLog(`\u{1F7EA} Response IA: ${responseIA}`);
 
-  
-  
+
+
   const url = `https://graph.facebook.com/v20.0/me/messages?access_token=${accessToken}`;
-  
+
   const chunks = responseIA.split(/\n\n+/);
 
   for (let i = 0; i < chunks.length; i++) {
@@ -201,7 +153,7 @@ function webhookHandler(req, res) {
       console.log(entry);
       fileLog(`\u{1F7EA} Entry:`);
       fileLog(entry);
-      
+
       // Iterate over webhook events - there may be multiple
       entry.messaging.forEach(async function (webhookEvent) {
         console.log(`\u{1F7EA} WebhookEvent:`);
@@ -217,7 +169,7 @@ function webhookHandler(req, res) {
       process.env.FACEBOOK_APLICATION_TOKEN,
       body.entry[0].messaging[0]
     );
-      
+
   } else {
     // Return a '404 Not Found' if event is not from a page subscription
     res.sendStatus(404);
@@ -237,7 +189,7 @@ export function startBotFacebook() {
     // Verificar que el webhook proviene de Facebook
     if (req.query['hub.mode'] === 'subscribe' &&
       req.query['hub.verify_token'] === validToken) {
-  
+
       res.status(200).send(req.query['hub.challenge']);
     } else {
       console.error('La verificación falló. La token no coincide.');

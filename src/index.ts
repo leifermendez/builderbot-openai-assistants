@@ -1,7 +1,7 @@
 import "dotenv/config"
 
-import { startBotWhatsApp } from "./bots/whatsapp";
-//import { startBotFacebook } from "./bots/facebook";
+import { startBotWhatsApp } from "./services/whatsapp";
+import { startBotFacebook } from "./services/facebook";
 
 startBotWhatsApp()
-//startBotFacebook();
+startBotFacebook();
