@@ -5,10 +5,59 @@ import { askIA } from "~/bot/openAI";
 import { fileLog, lastLogName, lastLogPath } from "~/utils/filelog";
 import { mainPath } from "~/utils/path";
 import { formatAIResponse } from "./formatAIResponse";
+import { speechToText } from "~/audioToText/audioToText";
 
 const app = express();
 const port = 3009;
 const validToken = process.env.FACEBOOK_VALIDATION_TOKEN
+
+
+interface ISenderManager {
+  formatChunk: (chunk: string) => string
+  getImages: (chunk: string) => string[]
+  sendText: (text: string) => void
+  sendImage: (url: string) => void
+  sendImageAndText: (text: string, url: string) => void
+}
+
+interface IAgentManager {
+  ask: (text: string, from:string, to:string) => Promise<string>
+}
+
+class ResponseManager {
+  sender: ISenderManager
+  agent: IAgentManager
+
+  constructor(sender: ISenderManager, agent: IAgentManager){
+    this.sender = sender
+    this.agent = agent
+  }
+
+  getChunks(text:string){
+    return text.split(/\n\n+/);
+  }
+
+  async responseText(text: string, from: string, to: string) {
+    const chunks = this.getChunks(text);
+    chunks.map(async (chunk) => {
+      const formatChunk = this.sender.formatChunk(chunk);
+      const images = this.sender.getImages(chunk);
+      if (images.length > 0){
+        this.sender.sendImageAndText(formatChunk, images[0]);
+      } else {
+        this.sender.sendText(formatChunk);
+      }
+    });
+  }
+
+  
+  async responseAudio(path: string, from: string, to: string) {
+    const text = await speechToText(path);
+    const chunks = this.getChunks(text);
+
+  }
+}
+
 
 async function responseMessage(pageID, accessToken, userMessage) {
   /*

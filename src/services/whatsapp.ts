@@ -40,35 +40,6 @@ const welcomeFlow = addKeyword<Provider, Database>(EVENTS.WELCOME)
     })
 
 
-interface ISenderManager {
-    formatChunk: (chunk: string) => string
-    getImages: (chunk: string) => string[]
-    sendText: (text: string) => void
-    sendImage: (url: string) => void
-    sendImageAndText: (text: string, url: string) => void
-}
-
-interface AgentManager {
-    ask: (text: string) => Promise<string>
-}
-
-class ResponseManager {
-    sender: ISenderManager
-
-    constructor(sender: ISenderManager, ) {
-        this.sender = sender
-    }
-
-    async responseText(text: string) {
-
-    }
-
-    
-    async responseAudio(path: string) {
-
-    }
-}
-
 
 async function responseText(text: string, state: any, flowDynamic: any, quotedMessage: string | null = null) {
     //console.log("Response Text Start")
