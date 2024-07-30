@@ -4,15 +4,17 @@
     "Precio": "$25,900",
     "Nombre comercial": "Boomerang",
     "Descripción": "Nuestro boomerang con sonido, es el juguete perfecto para mantener a tu perrito entretenido y activo. Diseñado para brindar horas de diversión, es adecuado para todos los tamaños y edades. Su diseño ligero facilita el lanzamiento y el manejo, tanto para ti como para tu mascota, proporcionando un juego interactivo y dinámico.",
+    "Más información": "El boomerang de Morfis cuenta con un material atóxico, y está hecho de estos colores que son funcionales para los perros Que son muy atractivos para los perros Pero cuenta también con un pito y se abre en dos pedazos el boomerang El boomerang se abre en dos pedazos para poder meter comida y que el perro pueda oler el boomerang y cuando lancen el boomerang el perro salga a buscar a diferencia del frisbee aquí en este en el boomerang si se puede colocar una comida en medio del juguete aparte de eso también cuenta con un pito que el pito nada más se activa cuando nosotros lo torcemos con la mano o sea cuando el ser humano lo torce con la mano, pero cuando el perro lo empieza a morder, no empieza a sonar el pito, entonces esto nos ayuda a que no sea un fastidio dentro de la casa, sino que nada más pite cuando lo desea el dueño del perro, coge el boomerang hace que pite, llama la atención del perro el perro viene y lo empieza a morder pero no anda pitando el objeto cuando el perro lo muerde.",
     "Medidas": "26cm Alto x 8,5cm Ancho x 18 cms Grosor",
-    "Colores disponibles": "Verde, Rojo, Rosa",
-    "Imagenes disponibles": "BOOMERANG, BOOMERANG-VERDE, BOOMERANG-ROJO, BOOMERANG-ROSA"
+    "Colores disponibles": "Azul/Verde, Rojo/Azul, Rosa/Azul",
+    "Imagenes disponibles": "BOOMERANG, BOOMERANG-AZUL-VERDE, BOOMERANG-ROJO-AZUL, BOOMERANG-ROSA-AZUL"
   },
   {
     "Código": "BOTELLA ECOLOGICA",
     "Precio": "$29,900",
     "Nombre comercial": "Botella Ecológica",
     "Descripción": "Nuestra botella ecológica, es un juguete innovador y seguro, diseñado para proporcionar horas de entretenimiento, mientras contribuye al cuidado del medio ambiente. El cilindro está especialmente diseñado para introducir pequeñas botellas plásticas en su interior. Esto no sólo previene que se lastime con el plástico, sino que también puedes reutilizar las botellas, promoviendo una práctica ecológica y complaciendo a tu perrito, con el sonido que tanto le encanta.",
+    "Más información": "",
     "Medidas": "21cm Alto x 25 cms Ancho x 21cm grosor",
     "Colores disponibles": "Azul, Morado, Rojo, Verde, Rosa",
     "Imagenes disponibles": "BOTELLA, BOTELLA-MORADO, BOTELLA-ROSA, BOTELLA-VERDE"
@@ -22,6 +24,7 @@
     "Precio": "$23,900",
     "Nombre comercial": "Cocodrilo Juguete Snacks",
     "Descripción": "Nuestro cocodrilo con compartimentos para snacks, es la elección perfecta para mantener a tu perrito entretenido y feliz. Diseñado especialmente para razas pequeñas y medianas, combina funcionalidad y diversión en un sólo producto.",
+    "Más información": "El cocodrilo es un objeto para animales de razas medianas y pequeñas, en el cual tiene unas puntas que nos ayudan a la limpieza de las encías de los perros. También podemos guardar objetos dentro para que nos ayudan a que el perro se interese más por el juguete y obtenga un premio a través de morderlo o de juguetearlo.",
     "Medidas": "4cm Alto x 13 cms Ancho x 10 cms Grosor",
     "Colores disponibles": "Azul, Morado, Rojo, Verde, Rosa",
     "Imagenes disponibles": "COCODRILO, COCODRILO-AZUL, COCODRILO-MORADO, COCODRILO-ROJO, COCODRILO-ROSA, COCODRILO-VERDE"
@@ -31,6 +34,7 @@
     "Precio": "$25,500",
     "Nombre comercial": "Frisbee",
     "Descripción": "Nuestro frisbee aerodinámico, no sólo es un juguete divertido, sino también una herramienta excelente para promover la actividad física y el bienestar de tu perrito. Diseñado para proporcionar el máximo entretenimiento, es perfecto para todas las razas y tamaños. Asegurando que se mantenga en forma y saludable, mientras disfruta de horas de diversión al aire libre.",
+    "Más información": "El frisbee es un objeto ligero que nos ayuda para los entrenamientos o nos ayuda para que el perro se movilice a grandes distancias y consuma más energía. Cuando los perros se acostumbran a utilizar el frisbee de Morphys es un objeto bastante ligero que maneja un material atóxico como todos los juguetes de morfis que manejan material atóxico y eso quiere decir que este material si el perro lo ingiere no se va a intoxicar y tiene una cosa es fácil digerirlo si en sus heces de carne va a salir sin ningún problema. Su deposición que se hace al día sale sin ningún problema. Sin generar ninguna contraindicación. Entonces este frisbee está hecho de ese material atóxico. Y nos ayuda mucho a que el perro esté siempre gastando una gran cantidad de calorías al correr largas distancias. Tiene el tamaño perfecto y vienen unos colores que son muy llamativos para los perros",
     "Medidas": "2,3 cms Alto x 22 cms Diámetro",
     "Colores disponibles": "Azul, Morado, Rojo, Verde, Rosa",
     "Imagenes disponibles": "FRISBEE, FRISBEE-AZUL, FRISBEE-VERDE"
@@ -40,6 +44,7 @@
     "Precio": "$29,900",
     "Nombre comercial": "Granada con mango",
     "Descripción": "Nuestra granada con mango es el juguete perfecto para aquellos perros con mucha energía y ganas de jugar. Este juguete interactivo y resistente, está diseñado para proporcionar horas de diversión y ejercicio, mientras cuida de los dientes de tu perrito, estimulando su mordida y promoviendo una buena higiene bucal.",
+    "Más información": "La granada también tiene una parte que es en el medio donde se le puede aplicar una comida que es tipo masa (paté) más que venden normalmente y esta comida de más al les ayuda, les ayuda que los perros también se mantenga entretenidos buscando jugar con el granada. Tiene unas puntas que la puntable ayuda también alo mismo, esa es puntica de ayuda a limpiar de cierta forma las ciencias. También es bastante grande en el medio para poder cruzar una cuerda y poder alar cuando ellos empiezan alar y a morder. Entonces hay dos tipos de cuerda, una que es con mango y una que es con nudo entonces esto objeto de la granada no sirve para rasas pequeñas medianas y grandes.",
     "Medidas": "5,5 cms Alto x 27 cms Ancho",
     "Colores disponibles": "Azul, Morado, Rojo, Verde, Rosa",
     "Imagenes disponibles": "GRANADAMANGO, GRANADAMANGO-VERDE, GRANADAMANGO-MORADA"
@@ -49,6 +54,7 @@
     "Precio": "$42,100",
     "Nombre comercial": "Juguete granada con nudos razas medianas y grandes",
     "Descripción": "Nuestra granada con nudos, no sólo proporciona horas de diversión, sino que también ayuda a fortalecer las mandíbulas de tu mascota y a promover una buena higiene bucal. Con su diseño resistente y colores llamativos, este juguete asegura que tu perrito se mantendrá feliz y saludable mientras juega.",
+    "Más información": "La granada también tiene una parte que es en el medio donde se le puede aplicar una comida que es tipo masa (paté) más que venden normalmente y esta comida de más al les ayuda, les ayuda que los perros también se mantenga entretenidos buscando jugar con el granada. Tiene unas puntas que la puntable ayuda también alo mismo, esa es puntica de ayuda a limpiar de cierta forma las ciencias. También es bastante grande en el medio para poder cruzar una cuerda y poder alar cuando ellos empiezan alar y a morder. Entonces hay dos tipos de cuerda, una que es con mango y una que es con nudo entonces esto objeto de la granada no sirve para rasas pequeñas medianas y grandes.",
     "Medidas": "26 cms Alto x 19 cms Ancho",
     "Colores disponibles": "Azul, Morado, Rojo, Verde, Rosa",
     "Imagenes disponibles": "GRANADANUDOS, GRANADANUDOS-MORADA"
@@ -58,6 +64,7 @@
     "Precio": "$16,600",
     "Nombre comercial": "Granada para snacks",
     "Descripción": "Nuestra granada es el juguete perfecto para mantener a tu perrito entretenido y mentalmente estimulado, ayudando a reducir su ansiedad por separación y promoviendo un comportamiento más tranquilo. Además, está diseñada con espacios para introducir snacks o paté, haciendo el juego más emocionante y delicioso.",
+    "Más información": "La granada también tiene una parte que es en el medio donde se le puede aplicar una comida que es tipo masa (paté) más que venden normalmente y esta comida de más al les ayuda, les ayuda que los perros también se mantenga entretenidos buscando jugar con el granada. Tiene unas puntas que la puntable ayuda también alo mismo, esa es puntica de ayuda a limpiar de cierta forma las ciencias. También es bastante grande en el medio para poder cruzar una cuerda y poder alar cuando ellos empiezan alar y a morder. Entonces hay dos tipos de cuerda, una que es con mango y una que es con nudo entonces esto objeto de la granada no sirve para rasas pequeñas medianas y grandes.",
     "Medidas": "8,5 cms Alto x 12 cms Ancho",
     "Colores disponibles": "Azul, Morado, Rojo, Verde, Rosa",
     "Imagenes disponibles": "GRANADA, GRANADA-ROJA, GRANADA-MORADA, GRANADA-VERDE"
@@ -67,6 +74,7 @@
     "Precio": "$37,900",
     "Nombre comercial": "Hueso con cuerda para halar",
     "Descripción": "El hueso con cuerda para halar es una excelente adición a la colección de juguetes de tu perrito. Con su diseño resistente y mango ergonómico, este juguete asegura que tanto tú como él, se mantendrán seguros y cómodos, mientras disfrutan de horas de juego. Ideal para todas las razas y tamaños. Puedes usarlo diariamente tanto en ambientes interiores, como en exteriores.",
+    "Más información": " El hueso grande Morphys también cumple igual que el cocodrilo con las mismas condiciones que es unas puntas dentro del hueso que ayudan a limpiar también las encías de los perros y también con esas puntas allí podemos guardar objetos premios para que los perros estén entretenidos buscando los premios siempre el hueso de morfis también cuenta con una cuerda puede ser solo o puede ser también con la cuerda y este hueso de morfis con la cuerda nos ayuda con unos perros más grandes cuando ellos empiezan a jalar y entonces lleva un mango en el cual la persona puede sujetar de forma cómoda con el mango puede sujetar de forma cómoda el hueso y empezar a hablar a través de la cuerda y el hueso de Morphys con el objeto de la comida en el medio",
     "Medidas": "Hueso:20 cms Largo x 7.4 cms Ancho Cuerda:32 cms Largo x 16 cms Ancho",
     "Colores disponibles": "Azul, Morado, Rojo, Verde, Rosa",
     "Imagenes disponibles": "HUESOCUERDA, HUESOCUERDA-AZUL, HUESOCUERDA-MORADO, HUESOCUERDA-ROJO, HUESOCUERDA-ROSA, HUESOCUERDA-VERDE"
@@ -76,6 +84,7 @@
     "Precio": "$27,900",
     "Nombre comercial": "Hueso individual",
     "Descripción": "Nuestro hueso individual para mascotas es un juguete duradero y divertido, diseñado para proporcionar horas y horas de entretenimiento. Cuenta con espacios para agregar en los extremos, los snacks favoritos de tu perrito, haciendo el juego aún más emocionante y atractivo. Es ideal para perritos de todas las razas y tamaños.",
+    "Más información": " El hueso grande Morphys también cumple igual que el cocodrilo con las mismas condiciones que es unas puntas dentro del hueso que ayudan a limpiar también las encías de los perros y también con esas puntas allí podemos guardar objetos premios para que los perros estén entretenidos buscando los premios siempre el hueso de morfis también cuenta con una cuerda puede ser solo o puede ser también con la cuerda y este hueso de morfis con la cuerda nos ayuda con unos perros más grandes cuando ellos empiezan a jalar y entonces lleva un mango en el cual la persona puede sujetar de forma cómoda con el mango puede sujetar de forma cómoda el hueso y empezar a hablar a través de la cuerda y el hueso de Morphys con el objeto de la comida en el medio",
     "Medidas": "7,4 cms Alto x 20 cms Ancho",
     "Colores disponibles": "Azul, Morado, Rojo, Verde, Rosa",
     "Imagenes disponibles": "HUESOINDIVIDUAL, HUESOINDIVIDUAL-ROJO, HUESOINDIVIDUAL-AZUL"
@@ -85,6 +94,7 @@
     "Precio": "$19,500",
     "Nombre comercial": "Juguete Hueso masticable razas pequeñas y minis",
     "Descripción": "El hueso masticable es el favorito de los perritos más pequeños, porque es suave con sus dientes, pero lo suficientemente fuerte para resistir su mordida. Está disponible en variedad de colores, para que puedas elegir. Este hueso, no sólo mantendrá entretenido a tu peludito, sino que también ayudará a promover una buena higiene dental y a reducir su aburrimiento. A tu perrito le encantará.",
+    "Más información": " El hueso pequeño de Morphys también funciona igual que la pelota, es un objeto muy pequeño, son para razas pequeñas y es para distraerse dentro de la casa o en el parque, pero cuenta con las mismas características que la pelota, lo único que es un huesito pequeñito, es material atóxico o colores llamativos.",
     "Medidas": "12 cms Alto x 7,4 cms Ancho",
     "Colores disponibles": "Azul, Morado, Rojo, Verde, Rosa",
     "Imagenes disponibles": "HUESOPEQUEÑO, HUESOPEQUEÑO-ROSA, HUESOPEQUEÑO-AZUL"
@@ -94,6 +104,7 @@
     "Precio": "$18,900",
     "Nombre comercial": "Pelota saltarina para perros resistente",
     "Descripción": "Esta pelota resistente no sólo es divertida, sino que también ayuda a mantener a tu peludito en forma y saludable. Con su diseño duradero, puedes estar seguro de que proporcionará muchas sesiones de juego emocionantes y seguras.",
+    "Más información": "contamos con una pelota de morfis pequeña una pelota pequeña esta pelota de morfis pequeña es para razas pequeñas es una pelota hecha también con materiales tóxicos y con colores que a los perros les parecen muy llamativos es una pelota de un excelente material y una durabilidad media en la cual el perro se va a sentir atraído a través de la pelota de morfis",
     "Medidas": "5,5cm de diametro y ancho 7,5cm",
     "Colores disponibles": "Azul, Morado, Rojo, Rosa",
     "Imagenes disponibles": "PELOTAPEQUEÑA, PELOTAPEQUEÑA-AZUL, PELOTAPEQUEÑA-MORADO, PELOTAPEQUEÑA-ROJO, PELOTAPEQUEÑA-ROSADO"

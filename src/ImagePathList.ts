@@ -13,11 +13,12 @@ export const ImagePathList = {
     '11-PlantillaBrahama': "https://res.cloudinary.com/dubmc8beu/image/upload/v1722046528/BOOMERANG-ROJO_vkajvm.jpg",
 };
 
+
 export const MorfisImagePathList = {
 'BOOMERANG' : "https://res.cloudinary.com/dubmc8beu/image/upload/v1722046529/BOOMERANG-VERDE_bg855c.jpg",
-'BOOMERANG-VERDE' : "https://res.cloudinary.com/dubmc8beu/image/upload/v1722046529/BOOMERANG-VERDE_bg855c.jpg",
-'BOOMERANG-ROJO' : "https://res.cloudinary.com/dubmc8beu/image/upload/v1722046528/BOOMERANG-ROJO_vkajvm.jpg",
-'BOOMERANG-ROSA' : "https://res.cloudinary.com/dubmc8beu/image/upload/v1722046528/BOOMERANG-ROSA_tqvetz.jpg",
+'BOOMERANG-AZUL-VERDE' : "https://res.cloudinary.com/dubmc8beu/image/upload/v1722046529/BOOMERANG-VERDE_bg855c.jpg",
+'BOOMERANG-ROJO-AZUL' : "https://res.cloudinary.com/dubmc8beu/image/upload/v1722046528/BOOMERANG-ROJO_vkajvm.jpg",
+'BOOMERANG-ROSA-AZUL' : "https://res.cloudinary.com/dubmc8beu/image/upload/v1722046528/BOOMERANG-ROSA_tqvetz.jpg",
 'BOTELLA' : "https://res.cloudinary.com/dubmc8beu/image/upload/v1722046526/BOTELLA-MORADO_jxksq9.jpg",
 'BOTELLA-MORADO' : "https://res.cloudinary.com/dubmc8beu/image/upload/v1722046526/BOTELLA-MORADO_jxksq9.jpg",
 'BOTELLA-ROSA' : "https://res.cloudinary.com/dubmc8beu/image/upload/v1722046526/BOTELLA-ROSA_t4iobd.jpg",
