@@ -1,0 +1,101 @@
+[
+  {
+    "Código": "BOOMERANG",
+    "Precio": "$25,900",
+    "Nombre comercial": "Boomerang",
+    "Descripción": "Nuestro boomerang con sonido, es el juguete perfecto para mantener a tu perrito entretenido y activo. Diseñado para brindar horas de diversión, es adecuado para todos los tamaños y edades. Su diseño ligero facilita el lanzamiento y el manejo, tanto para ti como para tu mascota, proporcionando un juego interactivo y dinámico.",
+    "Medidas": "26cm Alto x 8,5cm Ancho x 18 cms Grosor",
+    "Colores disponibles": "Verde, Rojo, Rosa",
+    "Imagenes disponibles": "BOOMERANG, BOOMERANG-VERDE, BOOMERANG-ROJO, BOOMERANG-ROSA"
+  },
+  {
+    "Código": "BOTELLA ECOLOGICA",
+    "Precio": "$29,900",
+    "Nombre comercial": "Botella Ecológica",
+    "Descripción": "Nuestra botella ecológica, es un juguete innovador y seguro, diseñado para proporcionar horas de entretenimiento, mientras contribuye al cuidado del medio ambiente. El cilindro está especialmente diseñado para introducir pequeñas botellas plásticas en su interior. Esto no sólo previene que se lastime con el plástico, sino que también puedes reutilizar las botellas, promoviendo una práctica ecológica y complaciendo a tu perrito, con el sonido que tanto le encanta.",
+    "Medidas": "21cm Alto x 25 cms Ancho x 21cm grosor",
+    "Colores disponibles": "Azul, Morado, Rojo, Verde, Rosa",
+    "Imagenes disponibles": "BOTELLA, BOTELLA-MORADO, BOTELLA-ROSA, BOTELLA-VERDE"
+  },
+  {
+    "Código": "COCODRILO",
+    "Precio": "$23,900",
+    "Nombre comercial": "Cocodrilo Juguete Snacks",
+    "Descripción": "Nuestro cocodrilo con compartimentos para snacks, es la elección perfecta para mantener a tu perrito entretenido y feliz. Diseñado especialmente para razas pequeñas y medianas, combina funcionalidad y diversión en un sólo producto.",
+    "Medidas": "4cm Alto x 13 cms Ancho x 10 cms Grosor",
+    "Colores disponibles": "Azul, Morado, Rojo, Verde, Rosa",
+    "Imagenes disponibles": "COCODRILO, COCODRILO-AZUL, COCODRILO-MORADO, COCODRILO-ROJO, COCODRILO-ROSA, COCODRILO-VERDE"
+  },
+  {
+    "Código": "FRISBEE",
+    "Precio": "$25,500",
+    "Nombre comercial": "Frisbee",
+    "Descripción": "Nuestro frisbee aerodinámico, no sólo es un juguete divertido, sino también una herramienta excelente para promover la actividad física y el bienestar de tu perrito. Diseñado para proporcionar el máximo entretenimiento, es perfecto para todas las razas y tamaños. Asegurando que se mantenga en forma y saludable, mientras disfruta de horas de diversión al aire libre.",
+    "Medidas": "2,3 cms Alto x 22 cms Diámetro",
+    "Colores disponibles": "Azul, Morado, Rojo, Verde, Rosa",
+    "Imagenes disponibles": "FRISBEE, FRISBEE-AZUL, FRISBEE-VERDE"
+  },
+  {
+    "Código": "GRANADA MANGO",
+    "Precio": "$29,900",
+    "Nombre comercial": "Granada con mango",
+    "Descripción": "Nuestra granada con mango es el juguete perfecto para aquellos perros con mucha energía y ganas de jugar. Este juguete interactivo y resistente, está diseñado para proporcionar horas de diversión y ejercicio, mientras cuida de los dientes de tu perrito, estimulando su mordida y promoviendo una buena higiene bucal.",
+    "Medidas": "5,5 cms Alto x 27 cms Ancho",
+    "Colores disponibles": "Azul, Morado, Rojo, Verde, Rosa",
+    "Imagenes disponibles": "GRANADAMANGO, GRANADAMANGO-VERDE, GRANADAMANGO-MORADA"
+  },
+  {
+    "Código": "GRANADA NUDOS",
+    "Precio": "$42,100",
+    "Nombre comercial": "Juguete granada con nudos razas medianas y grandes",
+    "Descripción": "Nuestra granada con nudos, no sólo proporciona horas de diversión, sino que también ayuda a fortalecer las mandíbulas de tu mascota y a promover una buena higiene bucal. Con su diseño resistente y colores llamativos, este juguete asegura que tu perrito se mantendrá feliz y saludable mientras juega.",
+    "Medidas": "26 cms Alto x 19 cms Ancho",
+    "Colores disponibles": "Azul, Morado, Rojo, Verde, Rosa",
+    "Imagenes disponibles": "GRANADANUDOS, GRANADANUDOS-MORADA"
+  },
+  {
+    "Código": "GRANADA SENCILLA",
+    "Precio": "$16,600",
+    "Nombre comercial": "Granada para snacks",
+    "Descripción": "Nuestra granada es el juguete perfecto para mantener a tu perrito entretenido y mentalmente estimulado, ayudando a reducir su ansiedad por separación y promoviendo un comportamiento más tranquilo. Además, está diseñada con espacios para introducir snacks o paté, haciendo el juego más emocionante y delicioso.",
+    "Medidas": "8,5 cms Alto x 12 cms Ancho",
+    "Colores disponibles": "Azul, Morado, Rojo, Verde, Rosa",
+    "Imagenes disponibles": "GRANADA, GRANADA-ROJA, GRANADA-MORADA, GRANADA-VERDE"
+  },
+  {
+    "Código": "HUESO CON CUERDA",
+    "Precio": "$37,900",
+    "Nombre comercial": "Hueso con cuerda para halar",
+    "Descripción": "El hueso con cuerda para halar es una excelente adición a la colección de juguetes de tu perrito. Con su diseño resistente y mango ergonómico, este juguete asegura que tanto tú como él, se mantendrán seguros y cómodos, mientras disfrutan de horas de juego. Ideal para todas las razas y tamaños. Puedes usarlo diariamente tanto en ambientes interiores, como en exteriores.",
+    "Medidas": "Hueso:20 cms Largo x 7.4 cms Ancho Cuerda:32 cms Largo x 16 cms Ancho",
+    "Colores disponibles": "Azul, Morado, Rojo, Verde, Rosa",
+    "Imagenes disponibles": "HUESOCUERDA, HUESOCUERDA-AZUL, HUESOCUERDA-MORADO, HUESOCUERDA-ROJO, HUESOCUERDA-ROSA, HUESOCUERDA-VERDE"
+  },
+  {
+    "Código": "HUESO INDIVIDUAL",
+    "Precio": "$27,900",
+    "Nombre comercial": "Hueso individual",
+    "Descripción": "Nuestro hueso individual para mascotas es un juguete duradero y divertido, diseñado para proporcionar horas y horas de entretenimiento. Cuenta con espacios para agregar en los extremos, los snacks favoritos de tu perrito, haciendo el juego aún más emocionante y atractivo. Es ideal para perritos de todas las razas y tamaños.",
+    "Medidas": "7,4 cms Alto x 20 cms Ancho",
+    "Colores disponibles": "Azul, Morado, Rojo, Verde, Rosa",
+    "Imagenes disponibles": "HUESOINDIVIDUAL, HUESOINDIVIDUAL-ROJO, HUESOINDIVIDUAL-AZUL"
+  },
+  {
+    "Código": "HUESO PEQUEÑO",
+    "Precio": "$19,500",
+    "Nombre comercial": "Juguete Hueso masticable razas pequeñas y minis",
+    "Descripción": "El hueso masticable es el favorito de los perritos más pequeños, porque es suave con sus dientes, pero lo suficientemente fuerte para resistir su mordida. Está disponible en variedad de colores, para que puedas elegir. Este hueso, no sólo mantendrá entretenido a tu peludito, sino que también ayudará a promover una buena higiene dental y a reducir su aburrimiento. A tu perrito le encantará.",
+    "Medidas": "12 cms Alto x 7,4 cms Ancho",
+    "Colores disponibles": "Azul, Morado, Rojo, Verde, Rosa",
+    "Imagenes disponibles": "HUESOPEQUEÑO, HUESOPEQUEÑO-ROSA, HUESOPEQUEÑO-AZUL"
+  },
+  {
+    "Código": "PELOTA PEQUEÑA",
+    "Precio": "$18,900",
+    "Nombre comercial": "Pelota saltarina para perros resistente",
+    "Descripción": "Esta pelota resistente no sólo es divertida, sino que también ayuda a mantener a tu peludito en forma y saludable. Con su diseño duradero, puedes estar seguro de que proporcionará muchas sesiones de juego emocionantes y seguras.",
+    "Medidas": "5,5cm de diametro y ancho 7,5cm",
+    "Colores disponibles": "Azul, Morado, Rojo, Rosa",
+    "Imagenes disponibles": "PELOTAPEQUEÑA, PELOTAPEQUEÑA-AZUL, PELOTAPEQUEÑA-MORADO, PELOTAPEQUEÑA-ROJO, PELOTAPEQUEÑA-ROSADO"
+  }
+]

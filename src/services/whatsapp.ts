@@ -8,7 +8,7 @@ import { typing } from "../utils/presence"
 //import { pipeline, WhisperProcessor, WhisperForConditionalGeneration } from '@xenova/transformers';
 import { dirname } from "path"
 import { fileURLToPath } from "url";
-import { ImagePathList } from "../ImagePathList";
+import { MorfisImagePathList } from "../ImagePathList";
 import { speechToText } from "../audioToText/audioToText"
 import { formatAIResponse } from "./formatAIResponse"
 
@@ -90,7 +90,7 @@ async function showResponseFlowDynamic(chunk, flowDynamic) {
         const formatImage = images[0].replaceAll('[image:', '').replaceAll(']', '')
             //remove ()[]
             .replaceAll(/\[.*?\]/g, '')
-        const pathImage = ImagePathList[formatImage]
+        const pathImage = MorfisImagePathList[formatImage]
         console.log('Path Image: ' + pathImage)
         await flowDynamic(
             [{
@@ -104,7 +104,7 @@ async function showResponseFlowDynamic(chunk, flowDynamic) {
         console.log("Print multiple images")
         for (const image of images) {
             const formatImage = image.replaceAll('[image:', '').replaceAll(']', '')
-            const pathImage = ImagePathList[formatImage]
+            const pathImage = MorfisImagePathList[formatImage]
             console.log('Path Image: ' + pathImage)
             await flowDynamic(
                 [{
