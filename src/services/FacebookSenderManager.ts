@@ -18,13 +18,13 @@ class FacebookSenderManager implements ISenderManager {
 
         const imagesURL = imageList.map(image => {
            
-            console.log('Path Image: ' + pathImage)
+            //console.log('Path Image: ' + pathImage)
             const formatImage = image
                 .replaceAll('[image:', '')
                 .replaceAll(']', '')
                 .replaceAll(/\[.*?\]/g, '')
 
-            const pathImage = ImagePathList[formatImage]
+            //const pathImage = ImagePathList[formatImage]
 
             return image.replaceAll('[image:', '').replaceAll(']', '')
         });
