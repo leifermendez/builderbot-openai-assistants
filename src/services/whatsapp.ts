@@ -8,9 +8,8 @@ import { typing } from "../utils/presence"
 //import { pipeline, WhisperProcessor, WhisperForConditionalGeneration } from '@xenova/transformers';
 import { dirname } from "path"
 import { fileURLToPath } from "url";
-import { MorfisImagePathList } from "../ImagePathList";
+import { ImagePathList } from "../ImagePathList";
 import { speechToText } from "../audioToText/audioToText"
-import { formatAIResponse } from "./formatAIResponse"
 
 
 const __filename = fileURLToPath(import.meta.url);
@@ -24,17 +23,13 @@ const isIAActive = IA_ACTIVE === 'true'
 const welcomeFlow = addKeyword<Provider, Database>(EVENTS.WELCOME)
     .addAction(async (ctx, { flowDynamic, state, provider }) => {
         try {
-            console.log("Welcome Flow")
+            /*console.log("Welcome Flow")
             console.log(ctx)
             //console.log(state)
             //console.log(provider)
             console.log(ctx.message)
-            console.log(ctx.message?.extendedTextMessage)
-            console.log(ctx.message?.extendedTextMessage?.contextInfo)
-            /*console.log(ctx.message?.extendedTextMessage?.contextInfo?.quotedMessage)
-            console.log(ctx.message?.extendedTextMessage?.contextInfo?.quotedMessage?.productMessage)
-            console.log(ctx.message?.extendedTextMessage?.contextInfo?.quotedMessage?.productMessage?.product?.title)
-            */
+            console.log(ctx.message.extendedTextMessage)
+            console.log(ctx.message.extendedTextMessage.contextInfo)*/
 
             await typing(ctx, provider)
             await responseText(ctx.body, state, flowDynamic, getQuoted(ctx))
@@ -42,7 +37,6 @@ const welcomeFlow = addKeyword<Provider, Database>(EVENTS.WELCOME)
             console.error(error)
         }
     })
-
 
 
 async function responseText(text: string, state: any, flowDynamic: any, quotedMessage: string | null = null) {
@@ -62,7 +56,47 @@ async function responseText(text: string, state: any, flowDynamic: any, quotedMe
 async function showResponseFlowDynamic(chunk, flowDynamic) {
     //Original chunk: Antonella - Tallas 27 al 33, Precio: $4,400, Color: Negro ![Antonella](attachment:3-Antonella)
     //Format chunk:  Antonella - Tallas 27 al 33, Precio: $4,400, Color: Negro
-    const formatChunk = formatAIResponse(chunk)
+    let formatChunk = chunk
+        //.replaceAll(/\[.*?\]/g, '')
+        .replaceAll(/【.*?】/g, '')
+        //remove ![Antonella](attachment:3-Antonella)
+        //.replaceAll(/!\[.*?]\(.*?\)/g, '')
+        .replaceAll(/!\[.*?]\(image:(.*?)\)/g, '')
+        //remove [image:9-Stefany]
+        .replaceAll(/\[image:[^\]]+\]/g, '')
+        .replaceAll(": .", ':')
+        .replaceAll(":.", ':')
+        .trim()
+        ;
+
+    // Format from
+    //\[ 120 \text{ pares} \times \$14,000 \text{ por par} = \$1,680,000 \]
+    //to 
+    // 120 pares x $14,000 por par = $1,680,000
+    // Paso 1: Remover los delimitadores de LaTeX
+    formatChunk = formatChunk.replaceAll(/\\\[/g, '').replace(/\\\]/g, '');
+
+    // Paso 2: Remover \text{...}
+    formatChunk = formatChunk.replaceAll(/\\text\{([^}]+)\}/g, '$1');
+
+    // Paso 3: Reemplazar \times con x
+    formatChunk = formatChunk.replaceAll(/\\times/g, 'x');
+    formatChunk = formatChunk.replaceAll('**', '*');
+
+    //if format chunk termina en - Imagen: remove
+    formatChunk = formatChunk.replace(/- Imagen:$/, '')
+
+    //if formatChunk termina en - remove
+    formatChunk = formatChunk.replace(/-$/, '')
+
+    // if formatChunk termina en : remove
+    formatChunk = formatChunk.replace(/:$/, '')
+
+    //if formatChunk is empty change
+
+    if (formatChunk.trim() == "") {
+        formatChunk = "."
+    }
 
     //get Images
 
@@ -94,7 +128,7 @@ async function showResponseFlowDynamic(chunk, flowDynamic) {
         const formatImage = images[0].replaceAll('[image:', '').replaceAll(']', '')
             //remove ()[]
             .replaceAll(/\[.*?\]/g, '')
-        const pathImage = MorfisImagePathList[formatImage]
+        const pathImage = ImagePathList[formatImage]
         console.log('Path Image: ' + pathImage)
         await flowDynamic(
             [{
@@ -108,7 +142,7 @@ async function showResponseFlowDynamic(chunk, flowDynamic) {
         console.log("Print multiple images")
         for (const image of images) {
             const formatImage = image.replaceAll('[image:', '').replaceAll(']', '')
-            const pathImage = MorfisImagePathList[formatImage]
+            const pathImage = ImagePathList[formatImage]
             console.log('Path Image: ' + pathImage)
             await flowDynamic(
                 [{
@@ -153,7 +187,7 @@ const audioFlow = addKeyword<Provider, Database>(EVENTS.VOICE_NOTE)
             //const text2 = await speechToText(localPath);
             //console.log(text);
             //await flowDynamic([{ body: "En esta demo no se admite audio" }]);
-            await responseText(text, state, flowDynamic, getQuoted(ctx))
+            await responseText("(Audio: " + text + ")", state, flowDynamic, getQuoted(ctx))
         } catch (error) {
             await showResponseFlowDynamic("Ahora mismo no puedo escuchar", flowDynamic)
         }
@@ -218,11 +252,6 @@ function getQuoted(ctx) {
         let caption = ctx?.message?.extendedTextMessage?.contextInfo?.quotedMessage?.imageMessage?.caption.trim();
         caption = caption === undefined || caption === "" ? null : caption;
 
-        const productTitle = ctx.message?.extendedTextMessage?.contextInfo?.quotedMessage?.productMessage?.product?.title
-        if (productTitle !== undefined && productTitle !== null) {
-            caption = "Se ha seleccionado el producto: " + productTitle
-        }
-            
         //console.log("Conversation: ")
         //console.log(conversation)
         //console.log("Caption: ")
@@ -235,12 +264,9 @@ function getQuoted(ctx) {
         if (quotedMessage == null) {
             quotedMessage = caption !== undefined || caption !== null ? caption : null;
         }
-        if (quotedMessage == null && productTitle !== undefined && productTitle !== null) {
-            quotedMessage = productTitle
-        }
 
-        console.log("quoted: ")
-        console.log(quotedMessage)
+        //console.log("quoted: ")
+        //console.log(quotedMessage)
         return quotedMessage;
     }
     catch (error) {

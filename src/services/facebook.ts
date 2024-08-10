@@ -4,12 +4,10 @@ import express from 'express';
 import { askIA } from "~/bot/openAI";
 import { fileLog, lastLogName, lastLogPath } from "~/utils/filelog";
 import { mainPath } from "~/utils/path";
-import { formatAIResponse } from "./formatAIResponse";
 
 const app = express();
 const port = 3009;
 const validToken = process.env.FACEBOOK_VALIDATION_TOKEN
-
 
 async function responseMessage(pageID, accessToken, userMessage) {
   /*
@@ -25,32 +23,21 @@ async function responseMessage(pageID, accessToken, userMessage) {
       
   */
 
-  if (userMessage.message.text == undefined || userMessage.message.text == "") {
-    return
-  }
-
   const clientID = userMessage.sender.id;
   const userID = userMessage.recipient.id;
-
-  if (clientID == '391605557364637') { // This is the ID of the page
-    return
-  }
 
   const responseIA = await askIA(userID, clientID, userMessage.message.text);
   //const responseIA = "Hello, world!";
   console.log(`\u{1F7EA} Response IA: ${responseIA}`);
   fileLog(`\u{1F7EA} Response IA: ${responseIA}`);
 
-
-
+  
+  
   const url = `https://graph.facebook.com/v20.0/me/messages?access_token=${accessToken}`;
-
+  
   const chunks = responseIA.split(/\n\n+/);
 
   for (let i = 0; i < chunks.length; i++) {
-
-    const formatChunk = formatAIResponse(chunks[i]);
-
 
     const data = {
       "recipient": {
@@ -58,22 +45,9 @@ async function responseMessage(pageID, accessToken, userMessage) {
       },
       "messaging_type": "RESPONSE",
       "message": {
-        "text": formatChunk
+        "text": chunks[i]
       }
     };
-
-    /* Exanple data
-    {
-      "recipient":{
-        "id":"{PSID}"
-      },
-      "messaging_type": "RESPONSE",
-      "message":{
-        "text":"Hello, world!"
-      }
-    }
-
-    */
     const options = {
       method: 'POST',
       headers: {
@@ -153,7 +127,7 @@ function webhookHandler(req, res) {
       console.log(entry);
       fileLog(`\u{1F7EA} Entry:`);
       fileLog(entry);
-
+      
       // Iterate over webhook events - there may be multiple
       entry.messaging.forEach(async function (webhookEvent) {
         console.log(`\u{1F7EA} WebhookEvent:`);
@@ -169,7 +143,7 @@ function webhookHandler(req, res) {
       process.env.FACEBOOK_APLICATION_TOKEN,
       body.entry[0].messaging[0]
     );
-
+      
   } else {
     // Return a '404 Not Found' if event is not from a page subscription
     res.sendStatus(404);
@@ -189,7 +163,7 @@ export function startBotFacebook() {
     // Verificar que el webhook proviene de Facebook
     if (req.query['hub.mode'] === 'subscribe' &&
       req.query['hub.verify_token'] === validToken) {
-
+  
       res.status(200).send(req.query['hub.challenge']);
     } else {
       console.error('La verificación falló. La token no coincide.');

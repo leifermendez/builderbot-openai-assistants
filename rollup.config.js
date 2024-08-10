@@ -1,9 +1,9 @@
 import typescript from 'rollup-plugin-typescript2'
 
 export default {
-    input: 'src/index.ts',
+    input: 'src/app.ts',
     output: {
-        file: 'public/index.js',
+        file: 'dist/app.js',
         format: 'esm',
     },
     onwarn: (warning) => {
