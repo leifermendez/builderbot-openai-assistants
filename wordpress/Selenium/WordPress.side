@@ -56,7 +56,7 @@
     }, {
       "id": "1f59cf87-62be-45e5-bb1c-2b1839e3e065",
       "comment": "",
-      "command": "//echo",
+      "command": "echo",
       "target": "${NumberOfProducts}",
       "targets": [],
       "value": ""
@@ -84,7 +84,7 @@
     }, {
       "id": "c7b6a187-5c1d-4eae-b619-2c114e744be0",
       "comment": "",
-      "command": "//echo",
+      "command": "echo",
       "target": "${CompareLength}",
       "targets": [],
       "value": ""
@@ -135,27 +135,14 @@
       "comment": "",
       "command": "click",
       "target": "xpath=//tr[${ProductIndex}]/td[2]/strong/a",
-      "targets": [
-        ["linkText=Boomerang", "linkText"],
-        ["css=#post-3491 .row-title", "css:finder"],
-        ["xpath=//a[contains(text(),'Boomerang')]", "xpath:link"],
-        ["xpath=//tr[@id='post-3491']/td[2]/strong/a", "xpath:idRelative"],
-        ["xpath=(//a[contains(@href, 'https://morfis.co/wp-admin/post.php?post=3491&action=edit')])[2]", "xpath:href"],
-        ["xpath=//tr[3]/td[2]/strong/a", "xpath:position"],
-        ["xpath=//a[contains(.,'Boomerang')]", "xpath:innerText"]
-      ],
+      "targets": [],
       "value": ""
     }, {
       "id": "26fa48ad-c1cb-4a36-8818-7847b7040d5f",
       "comment": "",
       "command": "click",
       "target": "css=.variations_options span",
-      "targets": [
-        ["css=.variations_options span", "css:finder"],
-        ["xpath=//div[@id='woocommerce-product-data']/div[2]/div/ul/li[6]/a/span", "xpath:idRelative"],
-        ["xpath=//div[2]/div/ul/li[6]/a/span", "xpath:position"],
-        ["xpath=//span[contains(.,'Variaciones')]", "xpath:innerText"]
-      ],
+      "targets": [],
       "value": ""
     }, {
       "id": "cecff2f6-8f72-4e24-86ec-fe9350e6d721",
@@ -169,11 +156,7 @@
       "comment": "",
       "command": "storeText",
       "target": "css=.variations-pagenav:nth-child(3) > .displaying-num",
-      "targets": [
-        ["css=.variations-pagenav:nth-child(3) > .displaying-num", "css:finder"],
-        ["xpath=//div[@id='variable_product_options_inner']/div[5]/div/span", "xpath:idRelative"],
-        ["xpath=//div[7]/div/div[5]/div/span", "xpath:position"]
-      ],
+      "targets": [],
       "value": "NumberOfVariants"
     }, {
       "id": "6c34e880-2336-499a-8a53-96e37da3cb70",
@@ -194,14 +177,7 @@
       "comment": "",
       "command": "click",
       "target": "linkText=Ampliar",
-      "targets": [
-        ["linkText=Ampliar", "linkText"],
-        ["css=.variations-pagenav:nth-child(4) .expand_all", "css:finder"],
-        ["xpath=(//a[contains(text(),'Ampliar')])[3]", "xpath:link"],
-        ["xpath=//div[@id='variable_product_options_inner']/div[2]/div/span[2]/a", "xpath:idRelative"],
-        ["xpath=(//a[contains(@href, '#')])[63]", "xpath:href"],
-        ["xpath=//span[2]/a", "xpath:position"]
-      ],
+      "targets": [],
       "value": ""
     }, {
       "id": "76d9710b-9e19-4c00-95b6-8b494841f08b",
@@ -222,14 +198,7 @@
       "comment": "",
       "command": "type",
       "target": "name=variable_regular_price[${VariantIndex}]",
-      "targets": [
-        ["id=variable_regular_price_0", "id"],
-        ["name=variable_regular_price[0]", "name"],
-        ["css=#variable_regular_price_0", "css:finder"],
-        ["xpath=//input[@id='variable_regular_price_0']", "xpath:attributes"],
-        ["xpath=//div[@id='variable_product_options_inner']/div[4]/div/div/div/div/p/input", "xpath:idRelative"],
-        ["xpath=//div[4]/div/div/div/div/p/input", "xpath:position"]
-      ],
+      "targets": [],
       "value": "${CurrentProductPrice}"
     }, {
       "id": "596d38e5-bae8-4275-8431-24752bedb540",
@@ -250,13 +219,7 @@
       "comment": "",
       "command": "click",
       "target": "css=.save-variation-changes",
-      "targets": [
-        ["css=.save-variation-changes", "css:finder"],
-        ["xpath=(//button[@type='button'])[81]", "xpath:attributes"],
-        ["xpath=//div[@id='variable_product_options_inner']/div[5]/button", "xpath:idRelative"],
-        ["xpath=//div[7]/div/div[5]/button", "xpath:position"],
-        ["xpath=//button[contains(.,'Guardar cambios')]", "xpath:innerText"]
-      ],
+      "targets": [],
       "value": ""
     }, {
       "id": "5657254f-6753-4f15-9cd6-695bd3e2fe9a",
@@ -270,12 +233,7 @@
       "comment": "",
       "command": "storeText",
       "target": "xpath=//tr[${ProductIndex}]/td[5]/span",
-      "targets": [
-        ["css=#post-3106 .woocommerce-Price-amount", "css:finder"],
-        ["xpath=//tr[@id='post-3106']/td[5]/span", "xpath:idRelative"],
-        ["xpath=//tr[2]/td[5]/span", "xpath:position"],
-        ["xpath=//span[contains(.,'$ 18.900')]", "xpath:innerText"]
-      ],
+      "targets": [],
       "value": "PriceInTable"
     }, {
       "id": "f20597e9-ac64-4f01-87cd-8127691253b4",
@@ -307,6 +265,154 @@
       "value": "0"
     }, {
       "id": "09aedb76-6dc6-4f58-8981-34b8ea0e914d",
+      "comment": "",
+      "command": "end",
+      "target": "",
+      "targets": [],
+      "value": ""
+    }]
+  }, {
+    "id": "dc55470f-9def-4fe6-8830-54097df91fe0",
+    "name": "Quitar Cache Ahora si",
+    "commands": [{
+      "id": "4cedd2f7-1dc3-4ba7-ae4e-161a02f54225",
+      "comment": "",
+      "command": "open",
+      "target": "/wp-admin/edit.php?s&post_status=all&post_type=product&action=-1&product_cat&product_type&stock_status=instock&filter_action=Filtrar&action2=-1&orderby=title&order=asc",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "29bbf3aa-bcf9-4a68-a42d-4247b0de5727",
+      "comment": "",
+      "command": "storeText",
+      "target": "css=.top .displaying-num",
+      "targets": [
+        ["css=.top .displaying-num", "css:finder"],
+        ["xpath=//form[@id='posts-filter']/div/div[3]/span", "xpath:idRelative"],
+        ["xpath=//form/div/div[3]/span", "xpath:position"],
+        ["xpath=//span[contains(.,'11 elementos')]", "xpath:innerText"]
+      ],
+      "value": "NumberOfProducts"
+    }, {
+      "id": "b605d059-b1dd-4a52-91e9-c4868350f6b9",
+      "comment": "",
+      "command": "executeScript",
+      "target": "return ${NumberOfProducts}.match(/\\d+/)[0]",
+      "targets": [],
+      "value": "NumberOfProducts"
+    }, {
+      "id": "1bd0e724-2ba6-418e-844b-9d3f6cecb51e",
+      "comment": "",
+      "command": "executeScript",
+      "target": "return 0",
+      "targets": [],
+      "value": "ProductIndex"
+    }, {
+      "id": "1320da86-6a45-4b1d-b7f9-652bdba44578",
+      "comment": "",
+      "command": "times",
+      "target": "${NumberOfProducts}",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "423ec19a-b391-47fd-b7f1-a75d814cad11",
+      "comment": "",
+      "command": "executeScript",
+      "target": "return ${ProductIndex} + 1",
+      "targets": [],
+      "value": "ProductIndex"
+    }, {
+      "id": "5c94e385-e100-47b7-a641-e555b1f052a1",
+      "comment": "",
+      "command": "click",
+      "target": "xpath=//tr[${ProductIndex}]/td[2]/strong/a",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "62bbb1be-51a5-4005-84e3-3369b74cea35",
+      "comment": "",
+      "command": "storeValue",
+      "target": "id=litespeed_no_cache",
+      "targets": [
+        ["id=litespeed_no_cache", "id"],
+        ["name=litespeed_no_cache", "name"],
+        ["css=#litespeed_no_cache", "css:finder"],
+        ["xpath=//input[@id='litespeed_no_cache']", "xpath:attributes"],
+        ["xpath=//div[@id='litespeed_meta_boxes']/div[2]/div/input", "xpath:idRelative"],
+        ["xpath=//div[9]/div[2]/div/input", "xpath:position"]
+      ],
+      "value": "disableCache"
+    }, {
+      "id": "a3910e42-5789-4ef3-ac55-afe2b32a3b36",
+      "comment": "",
+      "command": "echo",
+      "target": "${disableCache}",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "02ee0732-9c47-414a-81fd-9ce600449945",
+      "comment": "",
+      "command": "if",
+      "target": "${ProductIndex} != 1",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "7871a89b-c34c-40fc-97d3-36ca519e1027",
+      "comment": "",
+      "command": "click",
+      "target": "id=litespeed_no_cache",
+      "targets": [
+        ["id=litespeed_no_cache", "id"],
+        ["name=litespeed_no_cache", "name"],
+        ["css=#litespeed_no_cache", "css:finder"],
+        ["xpath=//input[@id='litespeed_no_cache']", "xpath:attributes"],
+        ["xpath=//div[@id='litespeed_meta_boxes']/div[2]/div/input", "xpath:idRelative"],
+        ["xpath=//div[9]/div[2]/div/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "36cfec08-8b2d-4814-80bd-164aac025a88",
+      "comment": "",
+      "command": "click",
+      "target": "id=publish",
+      "targets": [
+        ["id=publish", "id"],
+        ["css=#publish", "css:finder"],
+        ["xpath=//input[@id='publish']", "xpath:attributes"],
+        ["xpath=//div[@id='publishing-action']/input[2]", "xpath:idRelative"],
+        ["xpath=//div[3]/input[2]", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "15b2d54b-1d4d-4112-adff-8c01a2293eab",
+      "comment": "",
+      "command": "assertValue",
+      "target": "id=litespeed_no_cache",
+      "targets": [
+        ["id=litespeed_no_cache", "id"],
+        ["name=litespeed_no_cache", "name"],
+        ["css=#litespeed_no_cache", "css:finder"],
+        ["xpath=//input[@id='litespeed_no_cache']", "xpath:attributes"],
+        ["xpath=//div[@id='litespeed_meta_boxes']/div[2]/div/input", "xpath:idRelative"],
+        ["xpath=//div[9]/div[2]/div/input", "xpath:position"]
+      ],
+      "value": "1"
+    }, {
+      "id": "eb76f27c-de8e-4318-ba8d-bffbed0e6e72",
+      "comment": "",
+      "command": "end",
+      "target": "",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "7fa9709a-0bc8-4bea-9dd4-a82cdb817f9c",
+      "comment": "",
+      "command": "open",
+      "target": "/wp-admin/edit.php?s&post_status=all&post_type=product&action=-1&product_cat&product_type&stock_status=instock&filter_action=Filtrar&action2=-1&orderby=title&order=asc",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "f6d52028-7928-40bf-9218-01ab4f235a77",
       "comment": "",
       "command": "end",
       "target": "",

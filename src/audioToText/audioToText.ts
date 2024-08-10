@@ -18,5 +18,5 @@ export async function speechToText(filePath) {
     console.log("Transcription:");
     console.log(transcription.text);
     fs.unlinkSync(filePath);
-    return transcription.text;
+    return `speechToText: \`${transcription.text}\``;
 }
