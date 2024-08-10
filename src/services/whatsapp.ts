@@ -24,13 +24,17 @@ const isIAActive = IA_ACTIVE === 'true'
 const welcomeFlow = addKeyword<Provider, Database>(EVENTS.WELCOME)
     .addAction(async (ctx, { flowDynamic, state, provider }) => {
         try {
-            /*console.log("Welcome Flow")
+            console.log("Welcome Flow")
             console.log(ctx)
             //console.log(state)
             //console.log(provider)
             console.log(ctx.message)
-            console.log(ctx.message.extendedTextMessage)
-            console.log(ctx.message.extendedTextMessage.contextInfo)*/
+            console.log(ctx.message?.extendedTextMessage)
+            console.log(ctx.message?.extendedTextMessage?.contextInfo)
+            /*console.log(ctx.message?.extendedTextMessage?.contextInfo?.quotedMessage)
+            console.log(ctx.message?.extendedTextMessage?.contextInfo?.quotedMessage?.productMessage)
+            console.log(ctx.message?.extendedTextMessage?.contextInfo?.quotedMessage?.productMessage?.product?.title)
+            */
 
             await typing(ctx, provider)
             await responseText(ctx.body, state, flowDynamic, getQuoted(ctx))
@@ -214,6 +218,11 @@ function getQuoted(ctx) {
         let caption = ctx?.message?.extendedTextMessage?.contextInfo?.quotedMessage?.imageMessage?.caption.trim();
         caption = caption === undefined || caption === "" ? null : caption;
 
+        const productTitle = ctx.message?.extendedTextMessage?.contextInfo?.quotedMessage?.productMessage?.product?.title
+        if (productTitle !== undefined && productTitle !== null) {
+            caption = "Se ha seleccionado el producto: " + productTitle
+        }
+            
         //console.log("Conversation: ")
         //console.log(conversation)
         //console.log("Caption: ")
@@ -226,9 +235,12 @@ function getQuoted(ctx) {
         if (quotedMessage == null) {
             quotedMessage = caption !== undefined || caption !== null ? caption : null;
         }
+        if (quotedMessage == null && productTitle !== undefined && productTitle !== null) {
+            quotedMessage = productTitle
+        }
 
-        //console.log("quoted: ")
-        //console.log(quotedMessage)
+        console.log("quoted: ")
+        console.log(quotedMessage)
         return quotedMessage;
     }
     catch (error) {
