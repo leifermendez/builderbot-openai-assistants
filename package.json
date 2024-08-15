@@ -5,10 +5,10 @@
   "main": "dist/app.js",
   "type": "module",
   "scripts": {
-    "start": "npm run build && node ./dist/app.js",
+    "start": "node ./dist/app.js",
     "lint": "eslint . --no-ignore",
     "dev": "npm run lint && nodemon ./src/app.ts",
-    "build": "npm run rollup -c"
+    "build": "npx rollup -c"
   },
   "keywords": [],
   "dependencies": {
