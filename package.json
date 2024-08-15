@@ -5,11 +5,10 @@
   "main": "dist/app.js",
   "type": "module",
   "scripts": {
-    "start": "pnpm run build && node ./dist/app.js",
+    "start": "npm run build && node ./dist/app.js",
     "lint": "eslint . --no-ignore",
-    "dev": "pnpm run lint && nodemon ./src/app.ts",
-    "build": "pnpm run rollup -c",
-    "preinstall": "npx only-allow pnpm"
+    "dev": "npm run lint && nodemon ./src/app.ts",
+    "build": "npm run rollup -c"
   },
   "keywords": [],
   "dependencies": {
@@ -34,7 +33,6 @@
   "author": "",
   "license": "ISC",
   "engines": {
-    "node": ">=20",
-    "pnpm": ">=8"
+    "node": ">=20"
   }
 }
