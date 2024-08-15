@@ -1,44 +1,73 @@
-<p align="center">
-  <a href="https://builderbot.vercel.app/">
-    <picture>
-      <img src="https://builderbot.vercel.app/assets/thumbnail-vector.png" height="80">
-    </picture>
-    <h2 align="center">BuilderBot</h2>
-  </a>
-</p>
-
-
+# WhatsApp AI Assistant Bot
 
 <p align="center">
-  <a aria-label="NPM version" href="https://www.npmjs.com/package/@builderbot/bot">
-    <img alt="" src="https://img.shields.io/npm/v/@builderbot/bot?color=%2300c200&label=%40bot-whatsapp">
-  </a>
-  <a aria-label="Join the community on GitHub" href="https://link.codigoencasa.com/DISCORD">
-    <img alt="" src="https://img.shields.io/discord/915193197645402142?logo=discord">
-  </a>
+  <img src="https://builderbot.vercel.app/assets/thumbnail-vector.png" height="80">
 </p>
 
+This project creates a WhatsApp bot that integrates with an AI assistant using BuilderBot technology. It allows for automated conversations and intelligent responses powered by OpenAI's assistant API.
+
+## Features
+
+- Automated conversation flows for WhatsApp
+- Integration with OpenAI's assistant API
+- Agnostic to WhatsApp provider
+- Automated responses to frequently asked questions
+- Real-time message receiving and responding
+- Interaction tracking with customers
+- Expandable functionality through triggers
 
 ## Getting Started
 
-With this library, you can build automated conversation flows agnostic to the WhatsApp provider, set up automated responses for frequently asked questions, receive and respond to messages automatically, and track interactions with customers. Additionally, you can easily set up triggers to expand functionalities limitlessly.
+1. Clone this repository
+2. Install dependencies:
+   ```
+   pnpm install
+   ```
+3. Set up your environment variables in a `.env` file:
+   ```
+   PORT=3008
+   ASSISTANT_ID=your_openai_assistant_id
+   ```
+4. Run the development server:
+   ```
+   pnpm run dev
+   ```
 
-```
-npm create builderbot@latest
-```
+### Using Docker (Recommended)
 
+This project includes a Dockerfile for easy deployment and consistent environments. To use Docker:
+
+1. Build the Docker image:
+   ```
+   docker build -t whatsapp-ai-assistant .
+   ```
+2. Run the container:
+   ```
+   docker run -p 3008:3008 --env-file .env whatsapp-ai-assistant
+   ```
+
+This method ensures that the application runs in a consistent environment across different systems.
+
+## Usage
+
+The bot is configured in the `src/app.ts` file. It uses the BuilderBot library to create flows and handle messages. The main welcome flow integrates with the OpenAI assistant to generate responses.
 
 ## Documentation
 
-Visit [builderbot](https://builderbot.vercel.app/) to view the full documentation.
+For more detailed information on how to use and extend this bot, please refer to the [BuilderBot documentation](https://builderbot.vercel.app/).
 
+## Contributing
 
-## Official Course
+Contributions are welcome! Please feel free to submit a Pull Request.
 
-If you want to discover all the functions and features offered by the library you can take the course.
-[View Course](https://app.codigoencasa.com/courses/builderbot?refCode=LEIFER)
+## License
 
+This project is open-source and available under the [MIT License](LICENSE).
 
-## Contact Us
-- [💻 Discord](https://link.codigoencasa.com/DISCORD)
-- [👌 𝕏 (Twitter)](https://twitter.com/leifermendez)
+## Contact
+
+For questions and support, join our [Discord community](https://link.codigoencasa.com/DISCORD) or follow us on [Twitter](https://twitter.com/leifermendez).
+
+---
+
+Built with [BuilderBot](https://www.builderbot.app/en) - Empowering conversational AI for WhatsApp

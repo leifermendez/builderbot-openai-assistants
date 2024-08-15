@@ -5,16 +5,17 @@
   "main": "dist/app.js",
   "type": "module",
   "scripts": {
-    "start": "node ./dist/app.js",
+    "start": "pnpm run build && node ./dist/app.js",
     "lint": "eslint . --no-ignore",
-    "dev": "npm run lint && nodemon ./src/app.ts",
-    "build": "npx rollup -c"
+    "dev": "pnpm run lint && nodemon ./src/app.ts",
+    "build": "pnpm run rollup -c",
+    "preinstall": "npx only-allow pnpm"
   },
   "keywords": [],
   "dependencies": {
     "@builderbot-plugins/openai-assistants": "^0.0.2",
-    "@builderbot/bot": "1.1.4-alpha.2",
-    "@builderbot/provider-baileys": "1.1.4-alpha.2",
+    "@builderbot/bot": "1.2.1",
+    "@builderbot/provider-baileys": "1.2.1",
     "dotenv": "^16.4.5"
   },
   "devDependencies": {
@@ -31,5 +32,9 @@
     "typescript": "^5.4.3"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "engines": {
+    "node": ">=20",
+    "pnpm": ">=8"
+  }
 }
