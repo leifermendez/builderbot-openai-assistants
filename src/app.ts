@@ -44,7 +44,7 @@ const handleQueue = async (userId) => {
         try {
             await processUserMessage(ctx, { flowDynamic, state, provider });
         } catch (error) {
-            console.error(Error processing message for user ${userId}:, error);
+            console.error(`Error processing message for user ${userId}`:, error);
         } finally {
             userLocks.set(userId, false); // Release the lock
         }
