@@ -13,8 +13,8 @@
   "keywords": [],
   "dependencies": {
     "@builderbot-plugins/openai-assistants": "^0.0.2",
-    "@builderbot/bot": "1.2.1",
-    "@builderbot/provider-baileys": "1.2.1",
+    "@builderbot/bot": "1.2.2",
+    "@builderbot/provider-baileys": "1.2.2",
     "dotenv": "^16.4.5"
   },
   "devDependencies": {
