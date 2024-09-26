@@ -7,6 +7,7 @@ export function formatAIResponse(chunk: string): string {
         .replaceAll(/!\[.*?]\(image:(.*?)\)/g, '')
         //remove [image:9-Stefany]
         .replaceAll(/\[image:[^\]]+\]/g, '')
+        .replaceAll(/!\[.*?\]\((.*?)\)/g, '')
         .replaceAll(": .", ':')
         .replaceAll(":.", ':')
         .trim();
