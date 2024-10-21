@@ -1,0 +1,13 @@
+version: '3.8'
+services:
+  app:
+    build: .
+    ports:
+      - "3007:3007"
+    volumes:
+      - app-data:/app/bot_sessions
+    environment:
+      - NODE_ENV=development
+
+volumes:
+  app-data:

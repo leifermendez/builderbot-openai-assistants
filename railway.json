@@ -1,0 +1,13 @@
+{
+  "services": [
+    {
+      "name": "app",
+      "volumes": [
+        {
+          "path": "/app/bot_sessions",
+          "size": "0.5G"
+        }
+      ]
+    }
+  ]
+}
