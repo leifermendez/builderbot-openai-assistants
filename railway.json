@@ -1,0 +1,13 @@
+{
+  "services": [
+    {
+      "name": "app",
+      "volumes": [
+        {
+          "path": "/app/data",
+          "size": "1Gi"
+        }
+      ]
+    }
+  ]
+}
