@@ -38,7 +38,7 @@ export function formatAIResponse(chunk: string): string {
 
     //if formatChunk is empty change
     if (formatChunk.trim() == "") {
-        formatChunk = ".";
+        formatChunk = "";
     }
     return formatChunk;
 }
