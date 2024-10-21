@@ -63,7 +63,6 @@ async function showResponseFlowDynamic(chunk, flowDynamic) {
   //Original chunk: Antonella - Tallas 27 al 33, Precio: $4,400, Color: Negro ![Antonella](attachment:3-Antonella)
   //Format chunk:  Antonella - Tallas 27 al 33, Precio: $4,400, Color: Negro
   const formatChunk = formatAIResponse(chunk)
-  const originalChunk = chunk
   //get Images
 
   // reformat from ![Antonella](attachment:3-Antonella) to [image:3-Antonella]

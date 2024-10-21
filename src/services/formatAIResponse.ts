@@ -10,6 +10,7 @@ export function formatAIResponse(chunk: string): string {
         .replaceAll(/!\[.*?\]\((.*?)\)/g, '')
         .replaceAll(": .", ':')
         .replaceAll(":.", ':')
+        .replaceAll("--", '')
         .trim();
 
     // Format from
