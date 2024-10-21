@@ -5,7 +5,7 @@
       "volumes": [
         {
           "path": "/app/bot_sessions",
-          "size": "1Gi"
+          "size": "0.5G"
         }
       ]
     }
