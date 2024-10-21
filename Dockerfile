@@ -16,5 +16,5 @@ COPY . .
 # Expone el puerto en el que la aplicación se ejecutará
 EXPOSE 3007
 
-# Comando para ejecutar la aplicación
-CMD ["npm", "dev"]
+# Comando para ejecutar la aplicación en modo desarrollo
+CMD ["npm", "run", "dev"]
