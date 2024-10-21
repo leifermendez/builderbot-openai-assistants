@@ -5,7 +5,7 @@ services:
     ports:
       - "3007:3007"
     volumes:
-      - app-data:/path/to/data/directory/in/container
+      - app-data:/app/data
     environment:
       - NODE_ENV=development
 
