@@ -1,4 +1,4 @@
-class EventHandler extends EventEmitter {
+/*class EventHandler extends EventEmitter {
   constructor(client) {
     super();
     this.client = client;
@@ -60,3 +60,4 @@ class EventHandler extends EventEmitter {
     }
   }
 }
+  */
