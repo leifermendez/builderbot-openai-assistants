@@ -4,7 +4,7 @@
       "name": "app",
       "volumes": [
         {
-          "path": "/app/data",
+          "path": "/app",
           "size": "1Gi"
         }
       ]
