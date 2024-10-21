@@ -4,7 +4,7 @@ node_modules
 tmp/*
 !tmp/.gitkeep
 
-
+*_sessions
 *tokens
 .wwebjs*
 
