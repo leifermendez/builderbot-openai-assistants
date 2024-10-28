@@ -17,6 +17,10 @@ export async function speechToText(filePath) {
   });
   //console.log("Transcription:");
   //console.log(transcription.text);
+
+  
+  //delete audio
   fs.unlinkSync(filePath);
+
   return `speechToText: \`${transcription.text}\``;
 }
