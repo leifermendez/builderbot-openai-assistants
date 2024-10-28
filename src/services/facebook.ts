@@ -38,7 +38,7 @@ async function responseMessage(pageID, accessToken, userMessage) {
 
   const responseIA = await askIA(userID, clientID, userMessage.message.text);
   //const responseIA = "Hello, world!";
-  console.log(`\u{1F7EA} Response IA: ${responseIA}`);
+  //console.log(`\u{1F7EA} Response IA: ${responseIA}`);
   fileLog(`\u{1F7EA} Response IA: ${responseIA}`);
 
 
@@ -85,7 +85,7 @@ async function responseMessage(pageID, accessToken, userMessage) {
     fetch(url, options)
       .then(response => response.json())
       .then(data => {
-        console.log(data);
+        //console.log(data);
         fileLog(data);
       })
       .catch((error) => {
@@ -135,7 +135,7 @@ function webhookHandler(req, res) {
   */
   const body = req.body;
 
-  console.log(`\u{1F7EA} Received webhook:`);
+  //console.log(`\u{1F7EA} Received webhook:`);
   console.dir(body, { depth: null });
 
   fileLog(`\u{1F7EA} Received webhook:`);
@@ -149,15 +149,15 @@ function webhookHandler(req, res) {
     // Iterate over each entry - there may be multiple if batched
     body.entry.forEach(async function (entry) {
 
-      console.log(`\u{1F7EA} Entry:`);
-      console.log(entry);
+      //console.log(`\u{1F7EA} Entry:`);
+      //console.log(entry);
       fileLog(`\u{1F7EA} Entry:`);
       fileLog(entry);
 
       // Iterate over webhook events - there may be multiple
       entry.messaging.forEach(async function (webhookEvent) {
-        console.log(`\u{1F7EA} WebhookEvent:`);
-        console.log(webhookEvent);
+        //console.log(`\u{1F7EA} WebhookEvent:`);
+        //console.log(webhookEvent);
         fileLog(`\u{1F7EA} WebhookEvent:`);
         fileLog(webhookEvent);
       });
@@ -204,6 +204,6 @@ export function startBotFacebook() {
   });
 
   app.listen(port, () => {
-    console.log(`Servidor escuchando en http://localhost:${port}/webhook`);
+    //console.log(`Servidor escuchando en http://localhost:${port}/webhook`);
   });
 }

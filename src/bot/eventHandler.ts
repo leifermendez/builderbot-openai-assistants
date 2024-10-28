@@ -6,7 +6,7 @@
 
   async onEvent(event) {
     try {
-      console.log(event);
+      //console.log(event);
       // Retrieve events that are denoted with 'requires_action'
       // since these will have our tool_calls
       if (event.event === "thread.run.requires_action") {

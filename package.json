@@ -16,6 +16,7 @@
     "@builderbot-plugins/openai-assistants": "0.0.2",
     "@builderbot/bot": "1.1.7",
     "@builderbot/provider-baileys": "1.1.7",
+    "async-mutex": "^0.5.0",
     "dotenv": "16.4.5",
     "express": "4.19.2",
     "openai": "4.53.0",

@@ -8,15 +8,15 @@ const isIAActive = IA_ACTIVE === 'true'
 const openai = new OpenAI();
 
 export async function speechToText(filePath) {
-    if (!isIAActive) {
-        return ""
-    }
-    const transcription = await openai.audio.transcriptions.create({
-        file: fs.createReadStream(filePath),
-        model: "whisper-1",
-    });
-    console.log("Transcription:");
-    console.log(transcription.text);
-    fs.unlinkSync(filePath);
-    return `speechToText: \`${transcription.text}\``;
+  if (!isIAActive) {
+    return ""
+  }
+  const transcription = await openai.audio.transcriptions.create({
+    file: fs.createReadStream(filePath),
+    model: "whisper-1",
+  });
+  //console.log("Transcription:");
+  //console.log(transcription.text);
+  fs.unlinkSync(filePath);
+  return `speechToText: \`${transcription.text}\``;
 }

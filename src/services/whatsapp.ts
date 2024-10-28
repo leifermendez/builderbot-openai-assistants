@@ -11,6 +11,7 @@ import { fileURLToPath } from "url";
 import { MorfisImagePathList } from "../ImagePathList";
 import { speechToText } from "../audioToText/audioToText"
 import { formatAIResponse } from "./formatAIResponse"
+import { Mutex } from 'async-mutex';
 
 
 const __filename = fileURLToPath(import.meta.url);
@@ -24,39 +25,69 @@ const isIAActive = IA_ACTIVE === 'true'
 const welcomeFlow = addKeyword<Provider, Database>(EVENTS.WELCOME)
   .addAction(async (ctx, { flowDynamic, state, provider }) => {
     try {
-      console.log("Welcome Flow")
-      console.log(ctx)
-      //console.log(state)
-      //console.log(provider)
-      console.log(ctx.message)
-      console.log(ctx.message?.extendedTextMessage)
-      console.log(ctx.message?.extendedTextMessage?.contextInfo)
-      /*console.log(ctx.message?.extendedTextMessage?.contextInfo?.quotedMessage)
-      console.log(ctx.message?.extendedTextMessage?.contextInfo?.quotedMessage?.productMessage)
-      console.log(ctx.message?.extendedTextMessage?.contextInfo?.quotedMessage?.productMessage?.product?.title)
+      //console.log("Welcome Flow")
+      //console.log(ctx)
+      ////console.log(state)
+      ////console.log(provider)
+      //console.log(ctx.message)
+      //console.log(ctx.message?.extendedTextMessage)
+      //console.log(ctx.message?.extendedTextMessage?.contextInfo)
+      /*//console.log(ctx.message?.extendedTextMessage?.contextInfo?.quotedMessage)
+      //console.log(ctx.message?.extendedTextMessage?.contextInfo?.quotedMessage?.productMessage)
+      //console.log(ctx.message?.extendedTextMessage?.contextInfo?.quotedMessage?.productMessage?.product?.title)
       */
 
+      
+      const body = ctx.body
+      const from = ctx.from
+      const host = ctx.host.phone
+
+      console.log(new Date().toLocaleString(), `Message from ${from} to ${host}`, body)
+
       await typing(ctx, provider)
-      await responseText(ctx.body, state, flowDynamic, getQuoted(ctx))
+      await responseText(from, ctx.body, state, flowDynamic, getQuoted(ctx))
     } catch (error) {
       console.error(error)
     }
   })
 
+interface IClient {
+  id: string;
+  mutex: Mutex;
+}
+
+const mainMutex = new Mutex();
+const clientList: IClient[] = [];
+
+async function getClient(clientID: string): Promise<IClient> {
+  let result
+  await mainMutex.runExclusive(() => {
+    result = clientList.find((client) => client.id === clientID)
+    if (!result) {
+      result = { id: clientID, mutex: new Mutex() }
+      clientList.push(result)
+    }
+  })
+  return result
+}
 
 
-async function responseText(text: string, state: any, flowDynamic: any, quotedMessage: string | null = null) {
-  //console.log("Response Text Start")
-  const response = await responseFromAI(text, state, quotedMessage)
-  if (response == "") {
-    await flowDynamic([{ body: "Ahora mismo no puedo responder" }])
-    return
-  }
-  //console.log("Response From AI")
-  const chunks = response.split(/\n\n+/);
-  for (const chunk of chunks) {
-    await showResponseFlowDynamic(chunk, flowDynamic);
-  }
+async function responseText(clientID:string, text: string, state: any, flowDynamic: any, quotedMessage: string | null = null) {
+  const client = await getClient(clientID)
+  client.mutex.runExclusive(async () => {
+    ////console.log("Response Text Start")
+    const response = await responseFromAI(text, state, quotedMessage)
+    console.log(new Date().toLocaleString(), `Response AI to ${clientID}`, text)
+    if (response == "") {
+      await flowDynamic([{ body: "Ahora mismo no puedo responder" }])
+      return
+    }
+    ////console.log("Response From AI")
+    const chunks = response.split(/\n\n+/);
+    for (const chunk of chunks) {
+      await showResponseFlowDynamic(chunk, flowDynamic);
+    }
+  })
 }
 
 async function showResponseFlowDynamic(chunk, flowDynamic) {
@@ -78,12 +109,12 @@ async function showResponseFlowDynamic(chunk, flowDynamic) {
 
 
 
-  console.log('Original')
-  console.log(chunk)
-  console.log('Format')
-  console.log(formatChunk)
-  console.log('Images')
-  console.log(images)
+  //console.log('Original')
+  //console.log(chunk)
+  //console.log('Format')
+  //console.log(formatChunk)
+  //console.log('Images')
+  //console.log(images)
   // if number of images is 0 then show text
   if (images == null || images.length === 0 || images.length > 1) {
     await flowDynamic([{ body: formatChunk.trim() }]);
@@ -95,7 +126,7 @@ async function showResponseFlowDynamic(chunk, flowDynamic) {
 
   // if number of images is 1 then show only a flow Dynamic    
   if (images.length === 1) {
-    console.log("Print one image")
+    //console.log("Print one image")
     const formatImage = images[0].replaceAll('[image:', '').replaceAll(']', '')
       //remove ()[]
       .replaceAll(/\[.*?\]/g, '')
@@ -107,7 +138,7 @@ async function showResponseFlowDynamic(chunk, flowDynamic) {
     }
 
 
-    console.log('Path Image: ' + pathImage)
+    //console.log('Path Image: ' + pathImage)
     await flowDynamic(
       [{
         body: formatChunk.trim(),
@@ -117,11 +148,11 @@ async function showResponseFlowDynamic(chunk, flowDynamic) {
 
   // if number of images is more then show first a flow Dynamic with text and imagen and then show a flow Dynamic for each image
   if (images.length > 1) {
-    console.log("Print multiple images")
+    //console.log("Print multiple images")
     for (const image of images) {
       const formatImage = image.replaceAll('[image:', '').replaceAll(']', '')
       const pathImage = MorfisImagePathList[formatImage]
-      console.log('Path Image: ' + pathImage)
+      //console.log('Path Image: ' + pathImage)
       await flowDynamic(
         [{
           body: '.',
@@ -144,28 +175,33 @@ async function responseFromAI(text, state, quotedMessage) {
 const audioFlow = addKeyword<Provider, Database>(EVENTS.VOICE_NOTE)
   .addAction(async (ctx, { flowDynamic, state, provider }) => {
     try {
+      const from = ctx.from
+      const host = ctx.host.phone
+
       await typing(ctx, provider)
-      //console.log(ctx)
+      ////console.log(ctx)
 
       ///mnt/f/Proyectos/builderbot-openai-assistants/src/bots
       //remove last folder
       const path = __dirname.split('/').slice(0, -1).join('/')
-      //console.log(path)
+      ////console.log(path)
 
       //write the audio file
       const localPath = await provider.saveFile(ctx, { path: path + "/tmp" });
-      //console.log(localPath)
+      ////console.log(localPath)
 
       const text = await speechToText(localPath);
       if (text == "") {
+        console.log(new Date().toLocaleString(), `Audio from ${from} to ${host}`, null)
         await showResponseFlowDynamic("Ahora mismo no puedo escuchar", flowDynamic)
         return
       }
 
+      console.log(new Date().toLocaleString(), `Audio from ${from} to ${host}`, text)
       //const text2 = await speechToText(localPath);
-      //console.log(text);
+      ////console.log(text);
       //await flowDynamic([{ body: "En esta demo no se admite audio" }]);
-      await responseText(text, state, flowDynamic, getQuoted(ctx))
+      await responseText(from, text, state, flowDynamic, getQuoted(ctx))
     } catch (error) {
       await showResponseFlowDynamic("Ahora mismo no puedo escuchar", flowDynamic)
     }
@@ -174,51 +210,51 @@ const audioFlow = addKeyword<Provider, Database>(EVENTS.VOICE_NOTE)
 
 const documentFlow = addKeyword<Provider, Database>(EVENTS.DOCUMENT)
   .addAction(async (ctx, { flowDynamic, state, provider }) => {
-    console.log("Document Flow")
-    console.log(ctx)
-    console.log(state)
-    console.log(provider)
+    //console.log("Document Flow")
+    //console.log(ctx)
+    //console.log(state)
+    //console.log(provider)
   })
 
 const locationFlow = addKeyword<Provider, Database>(EVENTS.LOCATION)
   .addAction(async (ctx, { flowDynamic, state, provider }) => {
-    console.log("Location Flow")
-    console.log(ctx)
-    console.log(state)
-    console.log(provider)
+    //console.log("Location Flow")
+    //console.log(ctx)
+    //console.log(state)
+    //console.log(provider)
   })
 
 const mediaFlow = addKeyword<Provider, Database>(EVENTS.MEDIA)
   .addAction(async (ctx, { flowDynamic, state, provider }) => {
-    console.log("Media Flow")
-    console.log(ctx)
-    console.log(state)
-    console.log(provider)
+    //console.log("Media Flow")
+    //console.log(ctx)
+    //console.log(state)
+    //console.log(provider)
   })
 
 const orderFlow = addKeyword<Provider, Database>(EVENTS.ORDER)
   .addAction(async (ctx, { flowDynamic, state, provider }) => {
-    console.log("Order Flow")
-    console.log(ctx)
-    console.log(state)
-    console.log(provider)
+    //console.log("Order Flow")
+    //console.log(ctx)
+    //console.log(state)
+    //console.log(provider)
   })
 
 const templateFlow = addKeyword<Provider, Database>(EVENTS.TEMPLATE)
   .addAction(async (ctx, { flowDynamic, state, provider }) => {
-    console.log("Template Flow")
-    console.log(ctx)
-    console.log(state)
-    console.log(provider)
+    //console.log("Template Flow")
+    //console.log(ctx)
+    //console.log(state)
+    //console.log(provider)
   })
 
 
 const actionFlow = addKeyword<Provider, Database>(EVENTS.ACTION)
   .addAction(async (ctx, { flowDynamic, state, provider }) => {
-    console.log("Action Flow")
-    console.log(ctx)
-    console.log(state)
-    console.log(provider)
+    //console.log("Action Flow")
+    //console.log(ctx)
+    //console.log(state)
+    //console.log(provider)
   })
 
 
@@ -235,14 +271,14 @@ function getQuoted(ctx) {
       caption = "Se ha seleccionado el producto: " + productTitle
     }
 
-    //console.log("Conversation: ")
-    //console.log(conversation)
-    //console.log("Caption: ")
-    //console.log(caption)
-    //console.log("CTX: ")
-    //console.log(ctx)
-    //console.log("quotedMessage: ")
-    //console.log(ctx?.message?.extendedTextMessage?.contextInfo?.quotedMessage)
+    ////console.log("Conversation: ")
+    ////console.log(conversation)
+    ////console.log("Caption: ")
+    ////console.log(caption)
+    ////console.log("CTX: ")
+    ////console.log(ctx)
+    ////console.log("quotedMessage: ")
+    ////console.log(ctx?.message?.extendedTextMessage?.contextInfo?.quotedMessage)
     let quotedMessage = conversation !== undefined || conversation !== null || conversation !== "" ? conversation : null;
     if (quotedMessage == null) {
       quotedMessage = caption !== undefined || caption !== null ? caption : null;
@@ -251,8 +287,8 @@ function getQuoted(ctx) {
       quotedMessage = productTitle
     }
 
-    console.log("quoted: ")
-    console.log(quotedMessage)
+    //console.log("quoted: ")
+    //console.log(quotedMessage)
     return quotedMessage;
   }
   catch (error) {
