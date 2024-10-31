@@ -42,7 +42,7 @@ const welcomeFlow = addKeyword<Provider, Database>(EVENTS.WELCOME)
       const from = ctx.from
       const host = ctx.host.phone
 
-      console.log(new Date().toLocaleString(), `Message from ${from}\n`, body)
+      console.log(new Date().toLocaleString(), `Message from ${from} to ${host}`, body)
 
       await typing(ctx, provider)
       await responseText(from, ctx.body, state, flowDynamic, getQuoted(ctx))
@@ -77,7 +77,7 @@ async function responseText(clientID:string, text: string, state: any, flowDynam
   client.mutex.runExclusive(async () => {
     ////console.log("Response Text Start")
     const response = await responseFromAI(text, state, quotedMessage)
-    console.log(new Date().toLocaleString(), `Response AI to ${clientID}`, response)
+    console.log(new Date().toLocaleString(), `Response AI to ${clientID}`, text)
     if (response == "") {
       await flowDynamic([{ body: "Ahora mismo no puedo responder" }])
       return
@@ -191,15 +191,13 @@ const audioFlow = addKeyword<Provider, Database>(EVENTS.VOICE_NOTE)
       ////console.log(localPath)
 
       const text = await speechToText(localPath);
-
-
       if (text == "") {
-        console.log(new Date().toLocaleString(), `Audio from ${from}\n`, null)
+        console.log(new Date().toLocaleString(), `Audio from ${from} to ${host}`, null)
         await showResponseFlowDynamic("Ahora mismo no puedo escuchar", flowDynamic)
         return
       }
 
-      console.log(new Date().toLocaleString(), `Audio from ${from}\n`, text)
+      console.log(new Date().toLocaleString(), `Audio from ${from} to ${host}`, text)
       //const text2 = await speechToText(localPath);
       ////console.log(text);
       //await flowDynamic([{ body: "En esta demo no se admite audio" }]);
